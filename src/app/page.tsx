@@ -1,19 +1,9 @@
 // page.tsx
-import {
-  Flex,
-  Heading,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItemOption,
-  MenuOptionGroup,
-  Button,
-  VStack,
-} from "@chakra-ui/react";
-import { FaSearch, FaChevronDown } from "react-icons/fa";
+
+import { Flex, VStack } from "@chakra-ui/react";
+import Header from "./components/Header";
+import SearchBar from "./components/SearchBar";
+import FilterMenu from "./components/FilterMenu";
 
 export default function Home() {
   return (
@@ -25,81 +15,38 @@ export default function Home() {
       color="white"
       minHeight="100vh"
     >
-      <Heading as="h1" size="2xl" marginBottom="5" marginLeft="20px">
-        bestMovies
-      </Heading>
-      <InputGroup width={{ base: "85%", md: "60%" }} maxWidth="600px">
-        <Input
-          placeholder="Tapez votre recherche..."
-          bg="gray.700"
-          color="white"
-          borderRadius="md"
-          paddingRight="4rem"
-        />
-        <InputRightElement>
-          <FaSearch color="white" />
-        </InputRightElement>
-      </InputGroup>
-
+      <Header />
+      <SearchBar />
       <VStack
         spacing={4}
         align="stretch"
         width={{ base: "85%", md: "60%" }}
         marginTop="6"
       >
-        <Menu closeOnSelect={false}>
-          <MenuButton
-            as={Button}
-            rightIcon={<FaChevronDown />}
-            colorScheme="gray"
-            variant="outline"
-          >
-            Par genres
-          </MenuButton>
-          <MenuList minWidth="240px">
-            <MenuOptionGroup title="Genres" type="checkbox">
-              <MenuItemOption value="action">Action</MenuItemOption>
-              <MenuItemOption value="comedy">Comedy</MenuItemOption>
-              <MenuItemOption value="drama">Drama</MenuItemOption>
-            </MenuOptionGroup>
-          </MenuList>
-        </Menu>
-
-        <Menu closeOnSelect={false}>
-          <MenuButton
-            as={Button}
-            rightIcon={<FaChevronDown />}
-            colorScheme="gray"
-            variant="outline"
-          >
-            Par années de production
-          </MenuButton>
-          <MenuList minWidth="240px">
-            <MenuOptionGroup title="Années" type="checkbox">
-              <MenuItemOption value="2020">2020</MenuItemOption>
-              <MenuItemOption value="2021">2021</MenuItemOption>
-              <MenuItemOption value="2022">2022</MenuItemOption>
-            </MenuOptionGroup>
-          </MenuList>
-        </Menu>
-
-        <Menu closeOnSelect={false}>
-          <MenuButton
-            as={Button}
-            rightIcon={<FaChevronDown />}
-            colorScheme="gray"
-            variant="outline"
-          >
-            Par pays
-          </MenuButton>
-          <MenuList minWidth="240px">
-            <MenuOptionGroup title="Pays" type="checkbox">
-              <MenuItemOption value="us">États-Unis</MenuItemOption>
-              <MenuItemOption value="fr">France</MenuItemOption>
-              <MenuItemOption value="jp">Japon</MenuItemOption>
-            </MenuOptionGroup>
-          </MenuList>
-        </Menu>
+        <FilterMenu
+          title="Par genres"
+          options={[
+            { value: "action", label: "Action" },
+            { value: "comedy", label: "Comedy" },
+            { value: "drama", label: "Drama" },
+          ]}
+        />
+        <FilterMenu
+          title="Par années de production"
+          options={[
+            { value: "2020", label: "2020" },
+            { value: "2021", label: "2021" },
+            { value: "2022", label: "2022" },
+          ]}
+        />
+        <FilterMenu
+          title="Par pays"
+          options={[
+            { value: "us", label: "États-Unis" },
+            { value: "fr", label: "France" },
+            { value: "jp", label: "Japon" },
+          ]}
+        />
       </VStack>
     </Flex>
   );
