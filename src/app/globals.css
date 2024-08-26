@@ -1,33 +1,37 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* globals.css */
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+/* Reset CSS */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
+/* Appliquer les styles de base au body */
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: Inter, sans-serif;
+  background-color: #000;
+  color: #fff;
+  line-height: 1.5;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Assure que les images ne débordent pas de leur conteneur */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Basique pour les listes */
+ul,
+ol {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Liens sans décoration */
+a {
+  text-decoration: none;
+  color: inherit;
 }
