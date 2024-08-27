@@ -5,7 +5,11 @@ import { FaSearch } from "react-icons/fa";
 
 export default function SearchBar() {
   return (
-    <InputGroup width={{ base: "85%", md: "60%" }} maxWidth="600px">
+    <InputGroup
+      width={{ base: "85%", md: "60%" }}
+      maxWidth="600px"
+      marginBottom="5"
+    >
       <Input
         placeholder="Tapez votre recherche..."
         bg="gray.700"
