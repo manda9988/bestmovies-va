@@ -42,8 +42,15 @@ export function FilterMenu({ title, options }: FilterMenuProps) {
               color="white"
               key={option.value}
               value={option.value}
+              pl={0}
             >
-              <Checkbox defaultChecked colorScheme="whiteAlpha" mr={2} />
+              <Checkbox
+                defaultChecked
+                colorScheme="whiteAlpha"
+                mr={2.5}
+                mt={1} // Légèrement plus bas
+                pl={0} // Pousse légèrement la checkbox plus à gauche
+              />
               {option.label}
             </MenuItemOption>
           ))}
