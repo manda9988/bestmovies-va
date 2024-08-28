@@ -3,7 +3,7 @@
 import { Flex } from "@chakra-ui/react";
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
-import { FilterMenus } from "./components/FilterMenu";
+import { FilterPanel } from "./components/FilterPanel";
 
 export default function Home() {
   return (
@@ -17,7 +17,7 @@ export default function Home() {
     >
       <Header />
       <SearchBar />
-      <FilterMenus />
+      <FilterPanel />
     </Flex>
   );
 }

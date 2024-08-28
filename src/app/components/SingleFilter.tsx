@@ -1,4 +1,4 @@
-// FilterMenu.tsx
+// src/app/components/SingleFilter.tsx
 
 import {
   Menu,
@@ -7,17 +7,16 @@ import {
   MenuItemOption,
   MenuOptionGroup,
   Button,
-  VStack,
   Checkbox,
 } from "@chakra-ui/react";
 import { FaChevronDown } from "react-icons/fa";
 
-interface FilterMenuProps {
+interface SingleFilterProps {
   title: string;
   options: { value: string; label: string }[];
 }
 
-export function FilterMenu({ title, options }: FilterMenuProps) {
+export function SingleFilter({ title, options }: SingleFilterProps) {
   return (
     <Menu closeOnSelect={false} matchWidth>
       <MenuButton
@@ -48,8 +47,8 @@ export function FilterMenu({ title, options }: FilterMenuProps) {
                 defaultChecked
                 colorScheme="whiteAlpha"
                 mr={2.5}
-                mt={1} // Légèrement plus bas
-                pl={0} // Pousse légèrement la checkbox plus à gauche
+                mt={1}
+                pl={0}
               />
               {option.label}
             </MenuItemOption>
@@ -57,42 +56,5 @@ export function FilterMenu({ title, options }: FilterMenuProps) {
         </MenuOptionGroup>
       </MenuList>
     </Menu>
-  );
-}
-
-export function FilterMenus() {
-  return (
-    <VStack
-      spacing={4}
-      align="stretch"
-      width={{ base: "85%", md: "60%" }}
-      maxWidth="600px"
-      marginBottom="6"
-    >
-      <FilterMenu
-        title="Par genres"
-        options={[
-          { value: "action", label: "Action" },
-          { value: "comedy", label: "Comedy" },
-          { value: "drama", label: "Drama" },
-        ]}
-      />
-      <FilterMenu
-        title="Par années de production"
-        options={[
-          { value: "2020", label: "2020" },
-          { value: "2021", label: "2021" },
-          { value: "2022", label: "2022" },
-        ]}
-      />
-      <FilterMenu
-        title="Par pays"
-        options={[
-          { value: "us", label: "États-Unis" },
-          { value: "fr", label: "France" },
-          { value: "jp", label: "Japon" },
-        ]}
-      />
-    </VStack>
   );
 }

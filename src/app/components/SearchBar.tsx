@@ -8,7 +8,7 @@ export default function SearchBar() {
     <InputGroup
       width={{ base: "85%", md: "60%" }}
       maxWidth="600px"
-      marginBottom="5"
+      marginBottom="16px"
     >
       <Input
         placeholder="Tapez votre recherche..."
@@ -17,7 +17,7 @@ export default function SearchBar() {
         borderRadius="md"
         paddingRight="4rem"
       />
-      <InputRightElement>
+      <InputRightElement mr="8px" mt="0.5px">
         <FaSearch color="white" />
       </InputRightElement>
     </InputGroup>
