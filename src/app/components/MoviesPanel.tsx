@@ -9,11 +9,19 @@ export default function MoviesPanel() {
       alignItems="center"
       justifyContent="center"
       mt="1"
-      width={{ base: "85%", md: "60%" }}
+      width={{ base: "95%", md: "60%" }}
       maxWidth="500px"
+      mb="9"
     >
       {[...Array(10)].map((_, index) => (
-        <Box key={index} width="100%" height="350px" bg="black" mb="4" />
+        <Box
+          key={index}
+          width="100%"
+          height="350px"
+          bg="black"
+          mb="4"
+          borderRadius="8px"
+        />
       ))}
     </Flex>
   );
