@@ -2,8 +2,8 @@
 
 import { Flex } from "@chakra-ui/react";
 import Header from "./components/Header";
-import SearchBar from "./components/SearchBar";
 import { FilterPanel } from "./components/FilterPanel";
+import MoviesPanel from "./components/MoviesPanel";
 
 export default function Home() {
   return (
@@ -16,8 +16,8 @@ export default function Home() {
       minHeight="100vh"
     >
       <Header />
-      <SearchBar />
       <FilterPanel />
+      <MoviesPanel />
     </Flex>
   );
 }

@@ -9,8 +9,9 @@ export function FilterPanel() {
       spacing={4}
       align="stretch"
       width={{ base: "85%", md: "60%" }}
-      maxWidth="600px"
+      maxWidth="500px"
       marginBottom="6"
+      bg="green.500" // Ajout de la couleur de fond
     >
       <SingleFilter
         title="Par genres"
