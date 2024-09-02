@@ -10,7 +10,6 @@ export default function Footer() {
       py="4"
       justifyContent="center"
       width="100%"
-    //   bg="gray.900"
     >
       <Text fontSize="sm" color="gray.500">
         © 2024 BestMovies. All rights reserved.
