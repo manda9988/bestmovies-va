@@ -1,12 +1,11 @@
 // src/app/components/MoviesPanel.tsx
 
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
-import { movies } from "./moviesData"; // Importation des données des films
+import { Box, Grid, Image, Text } from "@chakra-ui/react";
+import { movies } from "./moviesData";
 
 export default function MoviesPanel() {
   return (
-    <Flex
-      direction="column"
+    <Box
       alignItems="center"
       justifyContent="center"
       mt="1"
@@ -15,7 +14,7 @@ export default function MoviesPanel() {
       mb="9"
     >
       {movies.map((movie, index) => (
-        <Flex
+        <Box
           key={index}
           width="100%"
           bg="gray.100"
@@ -23,41 +22,43 @@ export default function MoviesPanel() {
           borderRadius="8px"
           overflow="hidden"
         >
-          <Image
-            src={movie.posterUrl}
-            alt={movie.title}
-            boxSize="150px"
-            objectFit="cover"
-          />
-          <Box p="4">
-            <Text fontWeight="bold" fontSize="xl" color="gray.900">
-              {movie.title}
-            </Text>
-            <Text fontSize="sm" color="gray.900">
-              {movie.releaseDate} | {movie.duration} | {movie.genre}
-            </Text>
-            <Text fontSize="sm">
-              <Text as="span" color="gray.600">
-                De
+          <Grid templateColumns="35% 65%" gap={3} p="2">
+            <Image
+              src={movie.posterUrl}
+              alt={movie.title}
+              width="100%"
+              objectFit="contain"
+            />
+            <Box>
+              <Text fontWeight="extrabold" fontSize="2xl" color="gray.900">
+                {movie.title}
               </Text>
-              <Text as="span" color="gray.900" fontWeight="bold">
-                {` ${movie.director}`}
+              <Text fontSize="sm" color="gray.900">
+                {movie.releaseDate} | {movie.duration} | {movie.genre}
               </Text>
-            </Text>
-            <Text fontSize="sm">
-              <Text as="span" color="gray.600">
-                Avec
+              <Text fontSize="sm" pt="2">
+                <Text as="span" color="gray.600">
+                  De
+                </Text>
+                <Text as="span" color="gray.900" fontWeight="bold">
+                  {` ${movie.director}`}
+                </Text>
               </Text>
-              <Text as="span" color="gray.900" fontWeight="bold">
-                {` ${movie.cast}`}
+              <Text fontSize="sm">
+                <Text as="span" color="gray.600">
+                  Avec
+                </Text>
+                <Text as="span" color="gray.900" fontWeight="bold">
+                  {` ${movie.cast}`}
+                </Text>
               </Text>
-            </Text>
-            <Text mt="2" color="gray.900">
-              {movie.description}
-            </Text>
+            </Box>
+          </Grid>
+          <Box pt="1" pb="3" px="3">
+            <Text color="gray.900">{movie.description}</Text>
           </Box>
-        </Flex>
+        </Box>
       ))}
-    </Flex>
+    </Box>
   );
 }

@@ -21,7 +21,7 @@ export const movies = [
     cast: "Cailee Spaeny, David Jonsson, Archie Renaux",
     description:
       "Alors qu’il entreprend des fouilles dans une station spatiale abandonnée, un groupe de jeunes voyageurs se retrouve confronté à la forme de vie la plus terrifiante de l'univers...",
-    posterUrl: "/images/alienIMG.jpg", // Chemin mis à jour
+    posterUrl: "/images/terminatorIMG.jpeg", // Chemin mis à jour
   },
   {
     title: "Alien: Romulus",
