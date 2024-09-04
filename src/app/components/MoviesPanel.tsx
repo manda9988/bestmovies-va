@@ -29,7 +29,7 @@ export default function MoviesPanel() {
               width="100%"
               objectFit="contain"
             />
-            <Box>
+            <Box pr="12px">
               <Text fontWeight="extrabold" fontSize="2xl" color="gray.900">
                 {movie.title}
               </Text>
