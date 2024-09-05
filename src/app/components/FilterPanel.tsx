@@ -36,6 +36,14 @@ export function FilterPanel() {
           { value: "jp", label: "Japon" },
         ]}
       />
+      {/* Nouveau filtre pour Note spectateurs et Date de sortie */}
+      <SingleFilter
+        title="Trier par"
+        options={[
+          { value: "rating", label: "Note spectateurs" },
+          { value: "releaseDate", label: "Date de sortie" },
+        ]}
+      />
     </VStack>
   );
 }
