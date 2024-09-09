@@ -44,7 +44,8 @@ export function SingleFilter({ title, options }: SingleFilterProps) {
               pl={0}
             >
               <Checkbox
-                defaultChecked={option.value === "rating"} // Only check the "rating" option by default
+                defaultChecked={option.value === "rating"}
+                isDisabled={option.value === "rating"} // Disable the "rating" option
                 colorScheme="whiteAlpha"
                 mr={2.5}
                 mt={1}
