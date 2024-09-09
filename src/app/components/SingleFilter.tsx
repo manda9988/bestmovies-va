@@ -49,7 +49,7 @@ export function SingleFilter({ title, options }: SingleFilterProps) {
                 colorScheme="whiteAlpha"
                 mr={2.5}
                 mt={1}
-                pl={0}
+                ml={-2}
               />
               {option.label}
             </MenuItemOption>
