@@ -14,10 +14,12 @@ export default function Home() {
       bg="gray.800"
       color="white"
       minHeight="100vh"
+      flexGrow={1} // Ajoute ça pour étendre le contenu
     >
       <Header />
       <FilterPanel />
       <MoviesPanel />
+      <Flex flexGrow={1} />
       <Footer />
     </Flex>
   );

@@ -3,33 +3,25 @@
 "use client"; // Ajout de la directive
 
 import { useState, useEffect } from "react";
-import { Box, Button, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { movies } from "./moviesData";
 import MovieCard from "./MovieCard";
 
 export default function MoviesPanel() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [error, setError] = useState<string | null>(null); // Nouveau state pour l'erreur
   const moviesPerPage = 3;
 
-  // Calculer le début et la fin des films à afficher
+  useEffect(() => {
+    if (!movies || movies.length === 0) {
+      setError("Aucun film disponible pour le moment.");
+    }
+  }, []);
+
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
   const currentMovies = movies.slice(indexOfFirstMovie, indexOfLastMovie);
 
-  // Fonction pour faire défiler la page vers le haut
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth", // Fait défiler la page en douceur
-    });
-  };
-
-  // Appelle la fonction scrollToTop chaque fois que la page change
-  useEffect(() => {
-    scrollToTop();
-  }, [currentPage]);
-
-  // Gestion du changement de page
   const nextPage = () => {
     if (currentPage < Math.ceil(movies.length / moviesPerPage)) {
       setCurrentPage(currentPage + 1);
@@ -42,20 +34,27 @@ export default function MoviesPanel() {
     }
   };
 
+  if (error) {
+    return <Text color="red.500">{error}</Text>;
+  }
+
   return (
     <Box
       alignItems="center"
       justifyContent="center"
       mt="1"
-      width={{ base: "95%", md: "60%" }}
+      width="100%"
       maxWidth="500px"
       mb="9"
     >
-      {currentMovies.map((movie, index) => (
-        <MovieCard key={index} movie={movie} />
-      ))}
+      {currentMovies.length > 0 ? (
+        currentMovies.map((movie, index) => (
+          <MovieCard key={index} movie={movie} />
+        ))
+      ) : (
+        <Text>Aucun film à afficher.</Text>
+      )}
 
-      {/* Pagination Buttons */}
       <Flex justifyContent="space-between" mt="4">
         <Button onClick={prevPage} isDisabled={currentPage === 1} width="125px">
           Précédent
