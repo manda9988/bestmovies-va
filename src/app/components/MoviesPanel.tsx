@@ -4,28 +4,42 @@
 
 import { useState, useEffect } from "react";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import { movies } from "./moviesData";
 import MovieCard from "./MovieCard";
 
+// Définir le type Movie
+interface Movie {
+  title: string;
+  release_date: string;
+  runtime: number;
+  genre_ids: number[];
+  overview: string;
+  poster_path: string;
+}
+
 export default function MoviesPanel() {
+  const [movies, setMovies] = useState<Movie[]>([]); // Définir le type Movie[]
   const [currentPage, setCurrentPage] = useState(1);
-  const [error, setError] = useState<string | null>(null); // Nouveau state pour l'erreur
+  const [error, setError] = useState<string | null>(null);
   const moviesPerPage = 3;
 
   useEffect(() => {
-    if (!movies || movies.length === 0) {
-      setError("Aucun film disponible pour le moment.");
-    }
-  }, []);
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/movie/popular?api_key=8a4550f2878334d2012b924d74c5bb0c&page=${currentPage}`
+        );
+        const data = await response.json();
+        setMovies(data.results);
+      } catch (error) {
+        setError("Erreur lors du chargement des films.");
+      }
+    };
 
-  const indexOfLastMovie = currentPage * moviesPerPage;
-  const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
-  const currentMovies = movies.slice(indexOfFirstMovie, indexOfLastMovie);
+    fetchMovies();
+  }, [currentPage]);
 
   const nextPage = () => {
-    if (currentPage < Math.ceil(movies.length / moviesPerPage)) {
-      setCurrentPage(currentPage + 1);
-    }
+    setCurrentPage(currentPage + 1);
   };
 
   const prevPage = () => {
@@ -47,9 +61,21 @@ export default function MoviesPanel() {
       maxWidth="500px"
       mb="9"
     >
-      {currentMovies.length > 0 ? (
-        currentMovies.map((movie, index) => (
-          <MovieCard key={index} movie={movie} />
+      {movies.length > 0 ? (
+        movies.map((movie, index) => (
+          <MovieCard
+            key={index}
+            movie={{
+              title: movie.title,
+              releaseDate: movie.release_date,
+              duration: `Durée non disponible`, // L'API populaire ne renvoie pas la durée ici
+              genre: movie.genre_ids.join(", "), // Adaptation pour les genres
+              director: "N/A", // Non disponible dans cet endpoint
+              cast: "N/A", // Non disponible dans cet endpoint
+              description: movie.overview,
+              posterUrl: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+            }}
+          />
         ))
       ) : (
         <Text>Aucun film à afficher.</Text>
@@ -61,7 +87,7 @@ export default function MoviesPanel() {
         </Button>
         <Button
           onClick={nextPage}
-          isDisabled={currentPage === Math.ceil(movies.length / moviesPerPage)}
+          isDisabled={movies.length < moviesPerPage}
           width="125px"
         >
           Suivant
