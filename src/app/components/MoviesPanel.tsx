@@ -20,16 +20,16 @@ export default function MoviesPanel() {
   const [movies, setMovies] = useState<Movie[]>([]); // Définir le type Movie[]
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState<string | null>(null);
-  const moviesPerPage = 3;
+  const moviesPerPage = 5; // Changer pour 5 films par page
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/movie/popular?api_key=8a4550f2878334d2012b924d74c5bb0c&page=${currentPage}`
+          `https://api.themoviedb.org/3/movie/popular?api_key=8a4550f2878334d2012b924d74c5bb0c&page=${currentPage}&language=fr-FR&region=FR&include_adult=false`
         );
         const data = await response.json();
-        setMovies(data.results);
+        setMovies(data.results.slice(0, moviesPerPage)); // Limite à 5 films
       } catch (error) {
         setError("Erreur lors du chargement des films.");
       }
