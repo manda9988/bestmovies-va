@@ -1,10 +1,8 @@
 // src/app/components/MoviesPanel.tsx
 
-"use client"; // Ajout de la directive
-
-import { useState, useEffect } from "react";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import MovieCard from "./MovieCard";
+import Link from "next/link";
 
 // Définir le type Movie
 interface Movie {
@@ -16,46 +14,34 @@ interface Movie {
   poster_path: string;
 }
 
-export default function MoviesPanel() {
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [error, setError] = useState<string | null>(null);
-  const moviesPerPage = 5; // Changer pour 5 films par page
+interface MoviesPanelProps {
+  currentPage: number;
+}
 
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
-        if (!apiKey) {
-          setError(
-            "Clé API non définie. Veuillez vérifier votre configuration."
-          );
-          return;
-        }
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${currentPage}&language=fr-FR&region=FR&include_adult=false`
-        );
-        const data = await response.json();
-        setMovies(data.results.slice(0, moviesPerPage)); // Limite à 5 films
-      } catch (error) {
-        setError("Erreur lors du chargement des films.");
-      }
-    };
+export default async function MoviesPanel({ currentPage }: MoviesPanelProps) {
+  const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+  if (!apiKey) {
+    return (
+      <Text color="red.500">
+        Clé API non définie. Veuillez vérifier votre configuration.
+      </Text>
+    );
+  }
 
-    fetchMovies();
-  }, [currentPage]);
+  const moviesPerPage = 5;
+  let movies: Movie[] = [];
+  let error = null;
 
-  const nextPage = () => {
-    setCurrentPage(currentPage + 1);
-    window.scrollTo(0, 0); // Remonte en haut de la page
-  };
-
-  const prevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-      window.scrollTo(0, 0); // Remonte en haut de la page
-    }
-  };
+  try {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${currentPage}&language=fr-FR&region=FR&include_adult=false`,
+      { next: { revalidate: 3600 } } // Met en cache la réponse pendant 1 heure
+    );
+    const data = await response.json();
+    movies = data.results.slice(0, moviesPerPage);
+  } catch {
+    error = "Erreur lors du chargement des films.";
+  }
 
   if (error) {
     return <Text color="red.500">{error}</Text>;
@@ -77,10 +63,10 @@ export default function MoviesPanel() {
             movie={{
               title: movie.title,
               releaseDate: movie.release_date,
-              duration: `Durée non disponible`, // L'API populaire ne renvoie pas la durée ici
-              genre: movie.genre_ids.join(", "), // Adaptation pour les genres
-              director: "N/A", // Non disponible dans cet endpoint
-              cast: "N/A", // Non disponible dans cet endpoint
+              duration: `Durée non disponible`,
+              genre: movie.genre_ids.join(", "),
+              director: "N/A",
+              cast: "N/A",
               description: movie.overview,
               posterUrl: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
             }}
@@ -91,16 +77,18 @@ export default function MoviesPanel() {
       )}
 
       <Flex justifyContent="space-between" mt="4">
-        <Button onClick={prevPage} isDisabled={currentPage === 1} width="125px">
-          Précédent
-        </Button>
-        <Button
-          onClick={nextPage}
-          isDisabled={movies.length < moviesPerPage}
-          width="125px"
-        >
-          Suivant
-        </Button>
+        {currentPage > 1 ? (
+          <Link href={`/?page=${currentPage - 1}`} passHref>
+            <Button width="125px">Précédent</Button>
+          </Link>
+        ) : (
+          <Button width="125px" isDisabled>
+            Précédent
+          </Button>
+        )}
+        <Link href={`/?page=${currentPage + 1}`} passHref>
+          <Button width="125px">Suivant</Button>
+        </Link>
       </Flex>
     </Box>
   );

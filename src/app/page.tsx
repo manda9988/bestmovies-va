@@ -6,7 +6,13 @@ import { FilterPanel } from "./components/FilterPanel";
 import MoviesPanel from "./components/MoviesPanel";
 import Footer from "./components/Footer";
 
-export default function Home() {
+export default function Home({
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) {
+  const currentPage = parseInt(searchParams.page || "1", 10);
+
   return (
     <Flex
       direction="column"
@@ -14,11 +20,10 @@ export default function Home() {
       bg="gray.800"
       color="white"
       minHeight="100vh"
-      flexGrow={1} // Ajoute ça pour étendre le contenu
     >
       <Header />
       <FilterPanel />
-      <MoviesPanel />
+      <MoviesPanel currentPage={currentPage} />
       <Flex flexGrow={1} />
       <Footer />
     </Flex>
