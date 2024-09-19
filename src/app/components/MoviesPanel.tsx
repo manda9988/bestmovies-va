@@ -17,7 +17,7 @@ interface Movie {
 }
 
 export default function MoviesPanel() {
-  const [movies, setMovies] = useState<Movie[]>([]); // Définir le type Movie[]
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState<string | null>(null);
   const moviesPerPage = 5; // Changer pour 5 films par page
@@ -25,8 +25,15 @@ export default function MoviesPanel() {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
+        const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+        if (!apiKey) {
+          setError(
+            "Clé API non définie. Veuillez vérifier votre configuration."
+          );
+          return;
+        }
         const response = await fetch(
-          `https://api.themoviedb.org/3/movie/popular?api_key=8a4550f2878334d2012b924d74c5bb0c&page=${currentPage}&language=fr-FR&region=FR&include_adult=false`
+          `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${currentPage}&language=fr-FR&region=FR&include_adult=false`
         );
         const data = await response.json();
         setMovies(data.results.slice(0, moviesPerPage)); // Limite à 5 films
@@ -40,11 +47,13 @@ export default function MoviesPanel() {
 
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
+    window.scrollTo(0, 0); // Remonte en haut de la page
   };
 
   const prevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
+      window.scrollTo(0, 0); // Remonte en haut de la page
     }
   };
 
