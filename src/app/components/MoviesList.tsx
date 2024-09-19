@@ -2,6 +2,7 @@
 
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import MovieCard from "./MovieCard";
+import Pagination from "./Pagination";
 import Link from "next/link";
 
 interface Movie {
@@ -26,8 +27,6 @@ export default function MoviesList({
   currentPage,
   totalPages,
 }: MoviesListProps) {
-  const lastPage = totalPages;
-
   return (
     <Box
       alignItems="center"
@@ -38,7 +37,9 @@ export default function MoviesList({
       mb="9"
     >
       {movies.length > 0 ? (
-        movies.map((movie, index) => <MovieCard key={index} movie={movie} />)
+        movies.map((movie: Movie, index: number) => (
+          <MovieCard key={index} movie={movie} />
+        ))
       ) : (
         <Text>Aucun film à afficher.</Text>
       )}
@@ -55,69 +56,8 @@ export default function MoviesList({
           </Button>
         )}
 
-        {/* Pagination */}
-        <Flex alignItems="center">
-          {/* Bouton Page 1 */}
-          <Link href={`/?page=1`} passHref>
-            <Button
-              bg={currentPage === 1 ? "gray.500" : "white"}
-              color={currentPage === 1 ? "white" : "black"}
-              _hover={{ bg: "gray.400" }}
-              mx="1"
-              size="sm"
-            >
-              1
-            </Button>
-          </Link>
-
-          {/* Bouton Page 2 */}
-          {totalPages >= 2 && (
-            <Link href={`/?page=2`} passHref>
-              <Button
-                bg={currentPage === 2 ? "gray.500" : "white"}
-                color={currentPage === 2 ? "white" : "black"}
-                _hover={{ bg: "gray.400" }}
-                mx="1"
-                size="sm"
-              >
-                2
-              </Button>
-            </Link>
-          )}
-
-          {/* Bouton Page 3 */}
-          {totalPages >= 3 && (
-            <Link href={`/?page=3`} passHref>
-              <Button
-                bg={currentPage === 3 ? "gray.500" : "white"}
-                color={currentPage === 3 ? "white" : "black"}
-                _hover={{ bg: "gray.400" }}
-                mx="1"
-                size="sm"
-              >
-                3
-              </Button>
-            </Link>
-          )}
-
-          {/* Bouton Dernière Page */}
-          {lastPage > 3 && (
-            <>
-              <Text mx="2">...</Text>
-              <Link href={`/?page=${lastPage}`} passHref>
-                <Button
-                  bg={currentPage === lastPage ? "gray.500" : "white"}
-                  color={currentPage === lastPage ? "white" : "black"}
-                  _hover={{ bg: "gray.400" }}
-                  mx="1"
-                  size="sm"
-                >
-                  {lastPage}
-                </Button>
-              </Link>
-            </>
-          )}
-        </Flex>
+        {/* Composant Pagination */}
+        <Pagination currentPage={currentPage} totalPages={totalPages} />
 
         {/* Bouton Suivant */}
         {currentPage < totalPages ? (
