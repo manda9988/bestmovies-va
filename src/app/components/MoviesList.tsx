@@ -1,9 +1,8 @@
 // src/app/components/MoviesList.tsx
 
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import MovieCard from "./MovieCard";
 import Pagination from "./Pagination";
-import Link from "next/link";
 
 interface Movie {
   title: string;
@@ -44,31 +43,10 @@ export default function MoviesList({
         <Text>Aucun film à afficher.</Text>
       )}
 
-      <Flex justifyContent="space-between" mt="4" alignItems="center">
-        {/* Bouton Précédent */}
-        {currentPage > 1 ? (
-          <Link href={`/?page=${currentPage - 1}`} passHref>
-            <Button width="125px">Précédent</Button>
-          </Link>
-        ) : (
-          <Button width="125px" isDisabled>
-            Précédent
-          </Button>
-        )}
-
-        {/* Composant Pagination */}
+      {/* Retirer les anciens boutons "Précédent" et "Suivant" */}
+      <Flex justifyContent="center" mt="4" alignItems="center">
+        {/* Composant Pagination avec les nouvelles icônes */}
         <Pagination currentPage={currentPage} totalPages={totalPages} />
-
-        {/* Bouton Suivant */}
-        {currentPage < totalPages ? (
-          <Link href={`/?page=${currentPage + 1}`} passHref>
-            <Button width="125px">Suivant</Button>
-          </Link>
-        ) : (
-          <Button width="125px" isDisabled>
-            Suivant
-          </Button>
-        )}
       </Flex>
     </Box>
   );

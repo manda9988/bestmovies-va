@@ -1,7 +1,10 @@
 // src/app/components/Pagination.tsx
 
-import { Button, Flex, Text } from "@chakra-ui/react";
+"use client"; // Ajout de cette ligne
+
+import { Button, Flex, Icon } from "@chakra-ui/react";
 import Link from "next/link";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 interface PaginationProps {
   currentPage: number;
@@ -16,7 +19,20 @@ export default function Pagination({
 
   return (
     <Flex alignItems="center">
-      {/* Bouton Page 1 */}
+      {currentPage > 1 && (
+        <Link href={`/?page=${currentPage - 1}`} passHref>
+          <Button
+            bg="white"
+            color="black"
+            _hover={{ bg: "gray.400" }}
+            mx="1"
+            height="40px"
+          >
+            <Icon as={FaArrowLeft} />
+          </Button>
+        </Link>
+      )}
+
       <Link href={`/?page=1`} passHref>
         <Button
           bg={currentPage === 1 ? "gray.500" : "white"}
@@ -29,7 +45,6 @@ export default function Pagination({
         </Button>
       </Link>
 
-      {/* Bouton Page 2 */}
       {totalPages >= 2 && (
         <Link href={`/?page=2`} passHref>
           <Button
@@ -44,7 +59,6 @@ export default function Pagination({
         </Link>
       )}
 
-      {/* Bouton Page 3 */}
       {totalPages >= 3 && (
         <Link href={`/?page=3`} passHref>
           <Button
@@ -59,7 +73,6 @@ export default function Pagination({
         </Link>
       )}
 
-      {/* Bouton Dernière Page */}
       {lastPage > 3 && (
         <>
           <Link href={`/?page=${lastPage}`} passHref>
@@ -74,6 +87,20 @@ export default function Pagination({
             </Button>
           </Link>
         </>
+      )}
+
+      {currentPage < totalPages && (
+        <Link href={`/?page=${currentPage + 1}`} passHref>
+          <Button
+            bg="white"
+            color="black"
+            _hover={{ bg: "gray.400" }}
+            mx="1"
+            height="40px"
+          >
+            <Icon as={FaArrowRight} />
+          </Button>
+        </Link>
       )}
     </Flex>
   );
