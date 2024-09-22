@@ -2,7 +2,7 @@
 
 import { Box, Flex, Text } from "@chakra-ui/react";
 import MovieCard from "./MovieCard";
-import Pagination from "./Pagination";
+import CustomPagination from "./Pagination";
 
 interface Movie {
   title: string;
@@ -43,10 +43,8 @@ export default function MoviesList({
         <Text>Aucun film à afficher.</Text>
       )}
 
-      {/* Retirer les anciens boutons "Précédent" et "Suivant" */}
       <Flex justifyContent="center" mt="4" alignItems="center">
-        {/* Composant Pagination avec les nouvelles icônes */}
-        <Pagination currentPage={currentPage} totalPages={totalPages} />
+        <CustomPagination currentPage={currentPage} totalPages={totalPages} />
       </Flex>
     </Box>
   );

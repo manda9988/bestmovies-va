@@ -1,9 +1,9 @@
 // src/app/components/Pagination.tsx
 
-"use client"; // Ajout de cette ligne
+"use client";
 
 import { Button, Flex, Icon } from "@chakra-ui/react";
-import Link from "next/link";
+import { Pagination } from "@ark-ui/react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 interface PaginationProps {
@@ -11,113 +11,79 @@ interface PaginationProps {
   totalPages: number;
 }
 
-export default function Pagination({
+export default function CustomPagination({
   currentPage,
   totalPages,
 }: PaginationProps) {
-  const lastPage = totalPages;
   const buttonHeight = "38px"; // Hauteur des boutons
   const fontSize = "14px"; // Taille de la police
   const paddingX = "10px"; // Padding horizontal (px)
   const marginX = "0.5"; // Ajustement de la marge horizontale
 
   return (
-    <Flex alignItems="center">
-      {currentPage > 1 && (
-        <Link href={`/?page=${currentPage - 1}`} passHref>
+    <Pagination.Root
+      count={totalPages * 10}
+      pageSize={10}
+      page={currentPage}
+      onPageChange={(details) => {
+        window.location.href = `/?page=${details.page}`;
+      }}
+    >
+      <Flex alignItems="center">
+        <Pagination.PrevTrigger asChild>
           <Button
             bg="white"
             color="black"
             _hover={{ bg: "gray.400" }}
-            mx={marginX} // Marge horizontale ajustée
+            mx={marginX}
             height={buttonHeight}
             fontSize={fontSize}
             px={paddingX}
           >
             <Icon as={FaArrowLeft} />
           </Button>
-        </Link>
-      )}
+        </Pagination.PrevTrigger>
 
-      <Link href={`/?page=1`} passHref>
-        <Button
-          bg={currentPage === 1 ? "gray.500" : "white"}
-          color={currentPage === 1 ? "white" : "black"}
-          _hover={{ bg: "gray.400" }}
-          mx={marginX} // Marge horizontale ajustée
-          height={buttonHeight}
-          fontSize={fontSize}
-          px={paddingX}
-        >
-          1
-        </Button>
-      </Link>
+        <Pagination.Context>
+          {(pagination) =>
+            pagination.pages.map((page, index) =>
+              page.type === "page" ? (
+                <Pagination.Item key={index} {...page} asChild>
+                  <Button
+                    bg={currentPage === page.value ? "gray.500" : "white"}
+                    color={currentPage === page.value ? "white" : "black"}
+                    _hover={{ bg: "gray.400" }}
+                    mx={marginX}
+                    height={buttonHeight}
+                    fontSize={fontSize}
+                    px={paddingX}
+                  >
+                    {page.value}
+                  </Button>
+                </Pagination.Item>
+              ) : (
+                <Pagination.Ellipsis key={index} index={index}>
+                  &#8230;
+                </Pagination.Ellipsis>
+              )
+            )
+          }
+        </Pagination.Context>
 
-      {totalPages >= 2 && (
-        <Link href={`/?page=2`} passHref>
-          <Button
-            bg={currentPage === 2 ? "gray.500" : "white"}
-            color={currentPage === 2 ? "white" : "black"}
-            _hover={{ bg: "gray.400" }}
-            mx={marginX} // Marge horizontale ajustée
-            height={buttonHeight}
-            fontSize={fontSize}
-            px={paddingX}
-          >
-            2
-          </Button>
-        </Link>
-      )}
-
-      {totalPages >= 3 && (
-        <Link href={`/?page=3`} passHref>
-          <Button
-            bg={currentPage === 3 ? "gray.500" : "white"}
-            color={currentPage === 3 ? "white" : "black"}
-            _hover={{ bg: "gray.400" }}
-            mx={marginX} // Marge horizontale ajustée
-            height={buttonHeight}
-            fontSize={fontSize}
-            px={paddingX}
-          >
-            3
-          </Button>
-        </Link>
-      )}
-
-      {lastPage > 3 && (
-        <>
-          <Link href={`/?page=${lastPage}`} passHref>
-            <Button
-              bg={currentPage === lastPage ? "gray.500" : "white"}
-              color={currentPage === lastPage ? "white" : "black"}
-              _hover={{ bg: "gray.400" }}
-              mx={marginX} // Marge horizontale ajustée
-              height={buttonHeight}
-              fontSize={fontSize}
-              px={paddingX}
-            >
-              {lastPage}
-            </Button>
-          </Link>
-        </>
-      )}
-
-      {currentPage < totalPages && (
-        <Link href={`/?page=${currentPage + 1}`} passHref>
+        <Pagination.NextTrigger asChild>
           <Button
             bg="white"
             color="black"
             _hover={{ bg: "gray.400" }}
-            mx={marginX} // Marge horizontale ajustée
+            mx={marginX}
             height={buttonHeight}
             fontSize={fontSize}
             px={paddingX}
           >
             <Icon as={FaArrowRight} />
           </Button>
-        </Link>
-      )}
-    </Flex>
+        </Pagination.NextTrigger>
+      </Flex>
+    </Pagination.Root>
   );
 }
