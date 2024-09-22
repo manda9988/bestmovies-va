@@ -16,6 +16,10 @@ export default function Pagination({
   totalPages,
 }: PaginationProps) {
   const lastPage = totalPages;
+  const buttonHeight = "38px"; // Hauteur des boutons
+  const fontSize = "14px"; // Taille de la police
+  const paddingX = "10px"; // Padding horizontal (px)
+  const marginX = "0.5"; // Ajustement de la marge horizontale
 
   return (
     <Flex alignItems="center">
@@ -25,8 +29,10 @@ export default function Pagination({
             bg="white"
             color="black"
             _hover={{ bg: "gray.400" }}
-            mx="1"
-            height="40px"
+            mx={marginX} // Marge horizontale ajustée
+            height={buttonHeight}
+            fontSize={fontSize}
+            px={paddingX}
           >
             <Icon as={FaArrowLeft} />
           </Button>
@@ -38,8 +44,10 @@ export default function Pagination({
           bg={currentPage === 1 ? "gray.500" : "white"}
           color={currentPage === 1 ? "white" : "black"}
           _hover={{ bg: "gray.400" }}
-          mx="1"
-          height="40px"
+          mx={marginX} // Marge horizontale ajustée
+          height={buttonHeight}
+          fontSize={fontSize}
+          px={paddingX}
         >
           1
         </Button>
@@ -51,8 +59,10 @@ export default function Pagination({
             bg={currentPage === 2 ? "gray.500" : "white"}
             color={currentPage === 2 ? "white" : "black"}
             _hover={{ bg: "gray.400" }}
-            mx="1"
-            height="40px"
+            mx={marginX} // Marge horizontale ajustée
+            height={buttonHeight}
+            fontSize={fontSize}
+            px={paddingX}
           >
             2
           </Button>
@@ -65,8 +75,10 @@ export default function Pagination({
             bg={currentPage === 3 ? "gray.500" : "white"}
             color={currentPage === 3 ? "white" : "black"}
             _hover={{ bg: "gray.400" }}
-            mx="1"
-            height="40px"
+            mx={marginX} // Marge horizontale ajustée
+            height={buttonHeight}
+            fontSize={fontSize}
+            px={paddingX}
           >
             3
           </Button>
@@ -80,8 +92,10 @@ export default function Pagination({
               bg={currentPage === lastPage ? "gray.500" : "white"}
               color={currentPage === lastPage ? "white" : "black"}
               _hover={{ bg: "gray.400" }}
-              mx="1"
-              height="40px"
+              mx={marginX} // Marge horizontale ajustée
+              height={buttonHeight}
+              fontSize={fontSize}
+              px={paddingX}
             >
               {lastPage}
             </Button>
@@ -95,8 +109,10 @@ export default function Pagination({
             bg="white"
             color="black"
             _hover={{ bg: "gray.400" }}
-            mx="1"
-            height="40px"
+            mx={marginX} // Marge horizontale ajustée
+            height={buttonHeight}
+            fontSize={fontSize}
+            px={paddingX}
           >
             <Icon as={FaArrowRight} />
           </Button>
