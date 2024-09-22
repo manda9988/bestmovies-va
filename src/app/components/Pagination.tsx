@@ -15,16 +15,17 @@ export default function CustomPagination({
   currentPage,
   totalPages,
 }: PaginationProps) {
-  const buttonHeight = "38px"; // Hauteur des boutons
-  const fontSize = "14px"; // Taille de la police
-  const paddingX = "10px"; // Padding horizontal (px)
-  const marginX = "0.5"; // Ajustement de la marge horizontale
+  const buttonHeight = "38px"; 
+  const fontSize = "14px"; 
+  const paddingX = "10px"; 
+  const marginX = "3px"; 
 
   return (
     <Pagination.Root
       count={totalPages * 10}
       pageSize={10}
       page={currentPage}
+      // siblingCount={0}
       onPageChange={(details) => {
         window.location.href = `/?page=${details.page}`;
       }}
