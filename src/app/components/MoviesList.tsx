@@ -31,7 +31,7 @@ export default function MoviesList({
       alignItems="center"
       justifyContent="center"
       mt="1"
-      width="100%"
+      width={{ base: "94%", md: "60%" }}
       maxWidth="500px"
       mb="9"
     >
@@ -43,7 +43,7 @@ export default function MoviesList({
         <Text>Aucun film à afficher.</Text>
       )}
 
-      <Flex justifyContent="center" mt="4" alignItems="center">
+      <Flex justifyContent="center" mt="6" alignItems="center">
         <CustomPagination currentPage={currentPage} totalPages={totalPages} />
       </Flex>
     </Box>

@@ -29,7 +29,15 @@ export default function CustomPagination({
         window.location.href = `/?page=${details.page}`;
       }}
     >
-      <Flex alignItems="center">
+      <Flex
+        alignItems="center"
+        width="100%"
+        maxWidth="500px"
+        overflow="hidden"
+        wrap="wrap"
+        justifyContent="center"
+        rowGap="16px" // Ajoute de l'espace entre les lignes
+      >
         <Pagination.PrevTrigger asChild>
           <Button
             bg="white"
