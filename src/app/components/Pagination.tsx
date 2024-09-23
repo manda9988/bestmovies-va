@@ -18,7 +18,7 @@ export default function CustomPagination({
   const buttonHeight = "38px";
   const fontSize = "14px";
   const paddingX = "10px";
-  const marginX = "3px";
+  const marginX = "4px";
 
   return (
     <Pagination.Root
