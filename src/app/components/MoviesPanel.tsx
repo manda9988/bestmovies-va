@@ -2,6 +2,7 @@
 
 import { Text } from "@chakra-ui/react";
 import MoviesList from "./MoviesList";
+import { transformMovieData } from "../../utils/transformMovieData";
 
 interface Movie {
   title: string;
@@ -50,16 +51,7 @@ export default async function MoviesPanel({ currentPage }: MoviesPanelProps) {
   }
 
   // Transformer les données pour correspondre au format attendu par MoviesList
-  const transformedMovies = movies.map((movie) => ({
-    title: movie.title,
-    releaseDate: movie.release_date,
-    duration: `Durée non disponible`,
-    genre: movie.genre_ids.join(", "),
-    director: "N/A",
-    cast: "N/A",
-    description: movie.overview,
-    posterUrl: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-  }));
+  const transformedMovies = movies.map(transformMovieData);
 
   return (
     <MoviesList
