@@ -5,12 +5,17 @@ import MoviesList from "./MoviesList";
 import { transformMovieData } from "../../utils/transformMovieData";
 
 interface Movie {
+  id: number;
   title: string;
   release_date: string;
   runtime: number;
   genre_ids: number[];
   overview: string;
   poster_path: string;
+  credits?: {
+    crew: { job: string; name: string }[];
+    cast: { name: string }[];
+  };
 }
 
 interface MoviesPanelProps {
@@ -42,6 +47,17 @@ export default async function MoviesPanel({ currentPage }: MoviesPanelProps) {
     const startIndex = (currentPage - 1) * moviesPerPage;
     const endIndex = startIndex + moviesPerPage;
     movies = data.results.slice(startIndex, endIndex);
+
+    // Récupérer les détails supplémentaires pour chaque film
+    const movieDetailsPromises = movies.map(async (movie) => {
+      const creditsResponse = await fetch(
+        `https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=${apiKey}&language=fr-FR`
+      );
+      const creditsData = await creditsResponse.json();
+      return { ...movie, credits: creditsData };
+    });
+
+    movies = await Promise.all(movieDetailsPromises);
   } catch {
     error = "Erreur lors du chargement des films.";
   }
