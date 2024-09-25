@@ -22,8 +22,8 @@ export default function CustomPagination({
 
   return (
     <Pagination.Root
-      count={totalPages * 10}
-      pageSize={10}
+      count={totalPages} // Utilise directement le nombre de pages total
+      pageSize={1} // Chaque page API correspond à une page d'interface
       page={currentPage}
       onPageChange={(details) => {
         window.location.href = `/?page=${details.page}`;
