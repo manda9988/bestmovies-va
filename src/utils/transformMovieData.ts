@@ -34,7 +34,6 @@ export function transformMovieData(movie: Movie): TransformedMovie {
       .map((actor) => actor.name)
       .join(", ") || "N/A";
 
-  // Vérification que 'genres' existe avant d'appeler 'map'
   const genres =
     movie.genres?.map((genre) => genre.name).join(", ") ||
     "Genres non disponibles";

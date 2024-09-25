@@ -39,7 +39,7 @@ export default async function MoviesPanel({ currentPage }: MoviesPanelProps) {
 
   try {
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=fr-FR&region=FR&include_adult=false`,
+      `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=fr-FR&region=FR&include_adult=false&page=${currentPage}`,
       { next: { revalidate: 3600 } }
     );
     const data = await response.json();
@@ -50,11 +50,17 @@ export default async function MoviesPanel({ currentPage }: MoviesPanelProps) {
 
     // Récupérer les détails supplémentaires pour chaque film
     const movieDetailsPromises = movies.map(async (movie) => {
+      const detailsResponse = await fetch(
+        `https://api.themoviedb.org/3/movie/${movie.id}?api_key=${apiKey}&language=fr-FR`
+      );
+      const detailsData = await detailsResponse.json();
+
       const creditsResponse = await fetch(
         `https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=${apiKey}&language=fr-FR`
       );
       const creditsData = await creditsResponse.json();
-      return { ...movie, credits: creditsData };
+
+      return { ...detailsData, credits: creditsData };
     });
 
     movies = await Promise.all(movieDetailsPromises);
