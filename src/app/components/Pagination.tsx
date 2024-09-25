@@ -22,8 +22,8 @@ export default function CustomPagination({
 
   return (
     <Pagination.Root
-      count={totalPages} // Utilise directement le nombre de pages total
-      pageSize={1} // Chaque page API correspond à une page d'interface
+      count={totalPages} // Utiliser totalPages correctement
+      pageSize={1} // Correspond à une page API par page d'interface
       page={currentPage}
       onPageChange={(details) => {
         window.location.href = `/?page=${details.page}`;
@@ -36,7 +36,7 @@ export default function CustomPagination({
         overflow="hidden"
         wrap="wrap"
         justifyContent="center"
-        rowGap="16px" // Ajoute de l'espace entre les lignes
+        rowGap="16px"
       >
         <Pagination.PrevTrigger asChild>
           <Button

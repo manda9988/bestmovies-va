@@ -8,8 +8,8 @@ interface Movie {
   id: number;
   title: string;
   release_date: string;
-  runtime: number | null; // Permet null pour la durée manquante
-  genres: { id: number; name: string }[]; // Genres mis à jour
+  runtime: number | null;
+  genres: { id: number; name: string }[];
   overview: string;
   poster_path: string;
   credits?: {
@@ -38,15 +38,15 @@ export default async function MoviesPanel({ currentPage }: MoviesPanelProps) {
   let totalPages = 1;
 
   try {
-    // Récupère la page actuelle de films populaires
+    // Récupérer la page actuelle de films populaires
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=fr-FR&region=FR&include_adult=false&page=${currentPage}`,
-      { next: { revalidate: 3600 } }
+      `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=fr-FR&region=FR&include_adult=false&page=${currentPage}`
     );
     const data = await response.json();
-    totalPages = data.total_pages; // Nombre total de pages retournées par l'API
 
-    // Récupérer chaque film avec ses détails
+    // Utiliser total_pages de l'API et limiter à 500 pages maximum
+    totalPages = Math.min(data.total_pages, 500);
+
     const movieDetailsPromises = data.results.map(async (movie: Movie) => {
       const detailsResponse = await fetch(
         `https://api.themoviedb.org/3/movie/${movie.id}?api_key=${apiKey}&language=fr-FR`
@@ -70,14 +70,13 @@ export default async function MoviesPanel({ currentPage }: MoviesPanelProps) {
     return <Text color="red.500">{error}</Text>;
   }
 
-  // Transformer les données pour correspondre au format attendu par MoviesList
   const transformedMovies = movies.map(transformMovieData);
 
   return (
     <MoviesList
       movies={transformedMovies}
       currentPage={currentPage}
-      totalPages={totalPages} // Mise à jour correcte du totalPages
+      totalPages={totalPages} // Passe le bon nombre de pages à la pagination
     />
   );
 }
