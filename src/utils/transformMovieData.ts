@@ -4,7 +4,7 @@ interface Movie {
   title: string;
   release_date: string;
   runtime: number;
-  genre_ids: number[];
+  genres: { id: number; name: string }[]; // Utilisation de l'objet genres
   overview: string;
   poster_path: string;
   credits?: {
@@ -34,11 +34,16 @@ export function transformMovieData(movie: Movie): TransformedMovie {
       .map((actor) => actor.name)
       .join(", ") || "N/A";
 
+  // Vérification que 'genres' existe avant d'appeler 'map'
+  const genres =
+    movie.genres?.map((genre) => genre.name).join(", ") ||
+    "Genres non disponibles";
+
   return {
     title: movie.title,
     releaseDate: movie.release_date,
     duration: movie.runtime ? `${movie.runtime} min` : `Durée non disponible`,
-    genre: movie.genre_ids.join(", "),
+    genre: genres,
     director,
     cast,
     description: movie.overview,

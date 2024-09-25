@@ -9,7 +9,7 @@ interface Movie {
   title: string;
   release_date: string;
   runtime: number;
-  genre_ids: number[];
+  genres: { id: number; name: string }[]; // Mise à jour pour correspondre aux genres
   overview: string;
   poster_path: string;
   credits?: {
