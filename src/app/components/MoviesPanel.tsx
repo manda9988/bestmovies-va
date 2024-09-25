@@ -8,8 +8,8 @@ interface Movie {
   id: number;
   title: string;
   release_date: string;
-  runtime: number;
-  genres: { id: number; name: string }[]; // Mise à jour pour correspondre aux genres
+  runtime: number | null; // Permet null pour la durée manquante
+  genres: { id: number; name: string }[]; // Genres mis à jour
   overview: string;
   poster_path: string;
   credits?: {
@@ -48,7 +48,6 @@ export default async function MoviesPanel({ currentPage }: MoviesPanelProps) {
     const endIndex = startIndex + moviesPerPage;
     movies = data.results.slice(startIndex, endIndex);
 
-    // Récupérer les détails supplémentaires pour chaque film
     const movieDetailsPromises = movies.map(async (movie) => {
       const detailsResponse = await fetch(
         `https://api.themoviedb.org/3/movie/${movie.id}?api_key=${apiKey}&language=fr-FR`
@@ -72,7 +71,6 @@ export default async function MoviesPanel({ currentPage }: MoviesPanelProps) {
     return <Text color="red.500">{error}</Text>;
   }
 
-  // Transformer les données pour correspondre au format attendu par MoviesList
   const transformedMovies = movies.map(transformMovieData);
 
   return (
