@@ -38,9 +38,9 @@ export default async function MoviesPanel({ currentPage }: MoviesPanelProps) {
   let totalPages = 1;
 
   try {
-    // Récupérer la page actuelle de films populaires
+    // Récupérer la page actuelle de films triés par note (du mieux noté au moins bon)
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=fr-FR&region=FR&include_adult=false&page=${currentPage}`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=fr-FR&region=FR&include_adult=false&sort_by=vote_average.desc&vote_count.gte=4000&page=${currentPage}`
     );
     const data = await response.json();
 
@@ -76,7 +76,7 @@ export default async function MoviesPanel({ currentPage }: MoviesPanelProps) {
     <MoviesList
       movies={transformedMovies}
       currentPage={currentPage}
-      totalPages={totalPages} // Passe le bon nombre de pages à la pagination
+      totalPages={totalPages}
     />
   );
 }
