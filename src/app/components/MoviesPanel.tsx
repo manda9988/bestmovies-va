@@ -40,7 +40,7 @@ export default async function MoviesPanel({ currentPage }: MoviesPanelProps) {
   try {
     // Récupérer la page actuelle de films triés par note (du mieux noté au moins bon)
     const response = await fetch(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=fr-FR&region=FR&include_adult=false&sort_by=vote_average.desc&vote_count.gte=4000&page=${currentPage}`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=fr-FR&region=FR&include_adult=false&sort_by=vote_average.desc&vote_count.gte=3000&page=${currentPage}`
     );
     const data = await response.json();
 
