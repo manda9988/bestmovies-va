@@ -12,7 +12,10 @@ interface Movie {
   genres: { id: number; name: string }[];
   overview: string;
   poster_path: string;
-  production_countries: { iso_3166_1: string; name: string }[]; // Ajout des pays de production
+  production_countries: { iso_3166_1: string; name: string }[];
+  vote_average: number;
+  vote_count: number;
+  weightedRating?: number; // Ajout de la propriété weightedRating
   credits?: {
     crew: { job: string; name: string }[];
     cast: { name: string }[];
@@ -39,6 +42,10 @@ export default async function MoviesPanel({ currentPage }: MoviesPanelProps) {
 
   // Liste des pays principaux
   const allowedCountries = ["US", "CN", "FR", "DE", "JP", "GB", "KR", "IT"];
+
+  // Paramètres pour le calcul bayésien
+  const C = 3000;
+  const globalAverage = 6.5;
 
   try {
     // Récupérer les films de la page actuelle
@@ -67,14 +74,33 @@ export default async function MoviesPanel({ currentPage }: MoviesPanelProps) {
 
     movies = await Promise.all(movieDetailsPromises);
 
-    // Filtrer les films par pays de production
+    // Filtrer les films par pays de production et exclure les films d'animation
     movies = movies.filter((movie: Movie) => {
       const movieCountries = movie.production_countries.map(
         (country) => country.iso_3166_1
       );
-      return movieCountries.some((country) =>
+      const isAllowedCountry = movieCountries.some((country) =>
         allowedCountries.includes(country)
       );
+      const isAnimation = movie.genres.some(
+        (genre) => genre.name === "Animation"
+      );
+      return isAllowedCountry && !isAnimation;
+    });
+
+    // Calculer la note pondérée pour chaque film
+    movies = movies.map((movie) => {
+      const weightedRating =
+        (movie.vote_count / (movie.vote_count + C)) * movie.vote_average +
+        (C / (movie.vote_count + C)) * globalAverage;
+      return { ...movie, weightedRating };
+    });
+
+    // Trier les films par la note pondérée en gérant les valeurs indéfinies
+    movies = movies.sort((a, b) => {
+      const ratingA = a.weightedRating ?? 0;
+      const ratingB = b.weightedRating ?? 0;
+      return ratingB - ratingA;
     });
   } catch {
     error = "Erreur lors du chargement des films.";
