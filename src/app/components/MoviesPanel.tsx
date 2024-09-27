@@ -12,6 +12,7 @@ interface Movie {
   genres: { id: number; name: string }[];
   overview: string;
   poster_path: string;
+  production_countries: { iso_3166_1: string; name: string }[]; // Ajout des pays de production
   credits?: {
     crew: { job: string; name: string }[];
     cast: { name: string }[];
@@ -32,21 +33,24 @@ export default async function MoviesPanel({ currentPage }: MoviesPanelProps) {
     );
   }
 
-  const moviesPerPage = 5;
   let movies: Movie[] = [];
   let error = null;
   let totalPages = 1;
 
+  // Liste des pays principaux
+  const allowedCountries = ["US", "CN", "FR", "DE", "JP", "GB", "KR", "IT"];
+
   try {
-    // Récupérer la page actuelle de films triés par note (du mieux noté au moins bon)
+    // Récupérer les films de la page actuelle
     const response = await fetch(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=fr-FR&region=FR&include_adult=false&sort_by=vote_average.desc&vote_count.gte=3000&page=${currentPage}`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=fr-FR&include_adult=false&sort_by=vote_average.desc&vote_count.gte=3000&page=${currentPage}`
     );
     const data = await response.json();
 
     // Utiliser total_pages de l'API et limiter à 500 pages maximum
     totalPages = Math.min(data.total_pages, 500);
 
+    // Récupérer les détails et crédits pour chaque film
     const movieDetailsPromises = data.results.map(async (movie: Movie) => {
       const detailsResponse = await fetch(
         `https://api.themoviedb.org/3/movie/${movie.id}?api_key=${apiKey}&language=fr-FR`
@@ -62,6 +66,16 @@ export default async function MoviesPanel({ currentPage }: MoviesPanelProps) {
     });
 
     movies = await Promise.all(movieDetailsPromises);
+
+    // Filtrer les films par pays de production
+    movies = movies.filter((movie: Movie) => {
+      const movieCountries = movie.production_countries.map(
+        (country) => country.iso_3166_1
+      );
+      return movieCountries.some((country) =>
+        allowedCountries.includes(country)
+      );
+    });
   } catch {
     error = "Erreur lors du chargement des films.";
   }
