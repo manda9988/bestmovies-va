@@ -3,8 +3,8 @@
 interface Movie {
   title: string;
   release_date: string;
-  runtime: number | null; // Null autorisé pour la durée manquante
-  genres: { id: number; name: string }[]; // Structure des genres
+  runtime: number | null;
+  genres: { id: number; name: string }[];
   overview: string;
   poster_path: string;
   credits?: {
@@ -33,11 +33,9 @@ export function transformMovieData(movie: Movie): TransformedMovie {
       .slice(0, 4)
       .map((actor) => actor.name)
       .join(", ") || "N/A";
-
-  const genres = movie.genres?.length
-    ? movie.genres.map((genre) => genre.name).join(", ")
-    : "Genres non disponibles";
-
+  const genres =
+    movie.genres?.map((genre) => genre.name).join(", ") ||
+    "Genres non disponibles";
   const duration = movie.runtime
     ? `${movie.runtime} min`
     : "Durée non disponible";
