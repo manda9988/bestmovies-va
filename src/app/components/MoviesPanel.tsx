@@ -7,6 +7,8 @@ import MoviesList from "./MoviesList";
 import { transformMovieData } from "../../utils/transformMovieData";
 import { fetchMovies } from "../../utils/fetchMovies";
 import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import CustomPagination from "./Pagination";
 import { FilterPanel } from "./FilterPanel";
 
 interface Movie {
@@ -28,13 +30,23 @@ interface MoviesPanelProps {
 }
 
 export default function MoviesPanel({ currentPage }: MoviesPanelProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY ?? "";
-  const [selectedYear, setSelectedYear] = useState<string>("");
+  const [selectedYear, setSelectedYear] = useState<string>(
+    searchParams.get("year") || ""
+  );
+  const [page, setPage] = useState<number>(currentPage || 1);
 
   const handleYearChange = (yearRange: string | string[]) => {
     const yearString = Array.isArray(yearRange) ? yearRange[0] : yearRange;
-    console.log("Selected Year Range:", yearString);
     setSelectedYear(yearString);
+    router.push(`/?page=1&year=${yearString}`);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    router.push(`/?page=${newPage}&year=${selectedYear}`);
   };
 
   return (
@@ -42,8 +54,9 @@ export default function MoviesPanel({ currentPage }: MoviesPanelProps) {
       <FilterPanel onYearChange={handleYearChange} />
       <MoviesContent
         apiKey={apiKey}
-        currentPage={currentPage}
+        currentPage={page}
         selectedYear={selectedYear}
+        onPageChange={handlePageChange}
       />
     </>
   );
@@ -53,10 +66,12 @@ function MoviesContent({
   apiKey,
   currentPage,
   selectedYear,
+  onPageChange,
 }: {
   apiKey: string;
   currentPage: number;
   selectedYear: string;
+  onPageChange: (page: number) => void;
 }) {
   const [error, setError] = useState<string | null>(null);
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -65,23 +80,11 @@ function MoviesContent({
   useEffect(() => {
     async function loadMovies() {
       try {
-        console.log("Fetching movies with:", {
-          apiKey,
-          currentPage,
-          selectedYear,
-        });
         const result = await fetchMovies(apiKey, currentPage, selectedYear);
-        if (result.movies.length === 0) {
-          console.log("No movies found for this period.");
-          setError("Aucun film trouvé pour cette période.");
-        } else {
-          console.log("Movies fetched successfully:", result.movies);
-          setMovies(result.movies);
-          setTotalPages(result.totalPages);
-          setError(null); // Reset error
-        }
+        setMovies(result.movies);
+        setTotalPages(result.totalPages);
+        setError(null); // Reset error
       } catch (e) {
-        console.error("Error loading movies:", e);
         setError("Erreur lors du chargement des films.");
       }
     }
@@ -98,10 +101,13 @@ function MoviesContent({
   const transformedMovies = movies.map(transformMovieData);
 
   return (
-    <MoviesList
-      movies={transformedMovies}
-      currentPage={currentPage}
-      totalPages={totalPages}
-    />
+    <>
+      <MoviesList movies={transformedMovies} />
+      <CustomPagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={onPageChange} // Gère le changement de page
+      />
+    </>
   );
 }

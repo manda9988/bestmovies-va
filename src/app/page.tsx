@@ -10,7 +10,7 @@ export default function Home({
 }: {
   searchParams: { page?: string };
 }) {
-  const currentPage = parseInt(searchParams.page || "1", 10);
+  const currentPage = parseInt(searchParams.page || "1", 10); // Parse la page depuis les params d'URL
 
   return (
     <Flex
@@ -21,7 +21,7 @@ export default function Home({
       minHeight="100vh"
     >
       <Header />
-      <MoviesPanel currentPage={currentPage} />
+      <MoviesPanel currentPage={currentPage} /> {/* Passer currentPage ici */}
       <Flex flexGrow={1} />
       <Footer />
     </Flex>

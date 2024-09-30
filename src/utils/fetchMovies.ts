@@ -19,9 +19,10 @@ interface Movie {
 }
 
 const allowedCountries = ["US", "CN", "FR", "DE", "JP", "GB", "KR", "IT"];
-const C = 3000;
-const globalAverage = 6.5;
+const C = 3000; // Constante utilisée pour le calcul de la note pondérée
+const globalAverage = 6.5; // Moyenne globale à utiliser pour la pondération
 
+// Fonction pour récupérer les détails d'un film, y compris les crédits
 async function fetchMovieDetails(movieId: number, apiKey: string) {
   const detailsResponse = await fetch(
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=fr-FR`
@@ -38,6 +39,7 @@ async function fetchMovieDetails(movieId: number, apiKey: string) {
   return { ...detailsData, credits: creditsData };
 }
 
+// Fonction pour récupérer la liste des films
 export async function fetchMovies(
   apiKey: string,
   currentPage: number,
@@ -45,6 +47,7 @@ export async function fetchMovies(
 ) {
   let dateRange = "";
 
+  // Si une année est sélectionnée, construire la plage de dates
   if (selectedYear) {
     const [startYear, endYear] = selectedYear.split("-");
     if (startYear && endYear) {
@@ -56,6 +59,7 @@ export async function fetchMovies(
 
   console.log("Fetching movies from API with date range:", dateRange);
 
+  // Requête pour récupérer les films en fonction de la page et de la plage de dates
   const response = await fetch(
     `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=fr-FR&include_adult=false&sort_by=vote_average.desc&vote_count.gte=3000&page=${currentPage}${dateRange}`
   );
@@ -69,12 +73,14 @@ export async function fetchMovies(
 
   const totalPages = Math.min(data.total_pages, 500);
 
+  // Récupérer les détails de chaque film
   const movieDetailsPromises = data.results.map((movie: Movie) =>
     fetchMovieDetails(movie.id, apiKey)
   );
 
   let movies = await Promise.all(movieDetailsPromises);
 
+  // Filtrer les films en fonction de certains critères, comme les films d'animation et les pays autorisés
   movies = movies.filter((movie: Movie) => {
     const movieCountries = movie.production_countries.map(
       (country) => country.iso_3166_1
@@ -88,6 +94,7 @@ export async function fetchMovies(
     return isAllowedCountry && !isAnimation;
   });
 
+  // Calculer la note pondérée pour chaque film
   movies = movies.map((movie) => ({
     ...movie,
     weightedRating:
@@ -95,9 +102,11 @@ export async function fetchMovies(
       (C / (movie.vote_count + C)) * globalAverage,
   }));
 
+  // Trier les films par note pondérée
   movies = movies.sort(
     (a, b) => (b.weightedRating ?? 0) - (a.weightedRating ?? 0)
   );
 
+  // Retourner les films et le nombre total de pages
   return { movies, totalPages };
 }

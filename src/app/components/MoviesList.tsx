@@ -2,9 +2,8 @@
 
 "use client";
 
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import MovieCard from "./MovieCard";
-import CustomPagination from "./Pagination";
 
 interface Movie {
   title: string;
@@ -19,15 +18,9 @@ interface Movie {
 
 interface MoviesListProps {
   movies: Movie[];
-  currentPage: number;
-  totalPages: number;
 }
 
-export default function MoviesList({
-  movies,
-  currentPage,
-  totalPages,
-}: MoviesListProps) {
+export default function MoviesList({ movies }: MoviesListProps) {
   return (
     <Box
       alignItems="center"
@@ -44,10 +37,6 @@ export default function MoviesList({
       ) : (
         <Text>Aucun film à afficher.</Text>
       )}
-
-      <Flex justifyContent="center" mt="6" alignItems="center">
-        <CustomPagination currentPage={currentPage} totalPages={totalPages} />
-      </Flex>
     </Box>
   );
 }
