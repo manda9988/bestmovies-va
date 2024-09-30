@@ -7,16 +7,16 @@ import {
   MenuItemOption,
   MenuOptionGroup,
   Button,
-  Checkbox,
 } from "@chakra-ui/react";
 import { FaChevronDown } from "react-icons/fa";
 
 interface SingleFilterProps {
   title: string;
   options: { value: string; label: string }[];
+  onChange?: (value: string) => void; // onChange reste facultatif
 }
 
-export function SingleFilter({ title, options }: SingleFilterProps) {
+export function SingleFilter({ title, options, onChange }: SingleFilterProps) {
   return (
     <Menu closeOnSelect={false} matchWidth>
       <MenuButton
@@ -34,23 +34,17 @@ export function SingleFilter({ title, options }: SingleFilterProps) {
         {title}
       </MenuButton>
       <MenuList bg="gray.700" width="100%">
-        <MenuOptionGroup type="checkbox">
+        <MenuOptionGroup
+          type="checkbox"
+          onChange={(value) => onChange?.(value as string)} // Appel onChange s'il est fourni
+        >
           {options.map((option) => (
             <MenuItemOption
               bg="gray.700"
               color="white"
               key={option.value}
               value={option.value}
-              pl={0}
             >
-              <Checkbox
-                defaultChecked={option.value === "rating"}
-                isDisabled={option.value === "rating"} // Disable the "rating" option
-                colorScheme="whiteAlpha"
-                mr={2.5}
-                mt={1}
-                ml={-2}
-              />
               {option.label}
             </MenuItemOption>
           ))}

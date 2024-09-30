@@ -1,5 +1,7 @@
 // src/app/components/MoviesList.tsx
 
+"use client";
+
 import { Box, Flex, Text } from "@chakra-ui/react";
 import MovieCard from "./MovieCard";
 import CustomPagination from "./Pagination";

@@ -1,8 +1,7 @@
-// page.tsx
+// src/app/page.tsx
 
 import { Flex } from "@chakra-ui/react";
 import Header from "./components/Header";
-import { FilterPanel } from "./components/FilterPanel";
 import MoviesPanel from "./components/MoviesPanel";
 import Footer from "./components/Footer";
 
@@ -22,7 +21,6 @@ export default function Home({
       minHeight="100vh"
     >
       <Header />
-      <FilterPanel />
       <MoviesPanel currentPage={currentPage} />
       <Flex flexGrow={1} />
       <Footer />
