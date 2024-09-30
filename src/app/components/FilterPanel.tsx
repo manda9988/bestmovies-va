@@ -13,14 +13,6 @@ export function FilterPanel() {
       marginBottom="6"
     >
       <SingleFilter
-        title="Par genres"
-        options={[
-          { value: "action", label: "Action" },
-          { value: "comedy", label: "Comedy" },
-          { value: "drama", label: "Drama" },
-        ]}
-      />
-      <SingleFilter
         title="Par années de production"
         options={[
           { value: "2020-2029", label: "2020 - 2029" },
@@ -38,14 +30,7 @@ export function FilterPanel() {
           { value: "1900-1909", label: "1900 - 1909" },
         ]}
       />
-      <SingleFilter
-        title="Par pays"
-        options={[
-          { value: "us", label: "États-Unis" },
-          { value: "fr", label: "France" },
-          { value: "jp", label: "Japon" },
-        ]}
-      />
+
       <SingleFilter
         title="Trier par"
         options={[{ value: "rating", label: "Note spectateurs" }]}
