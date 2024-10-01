@@ -46,11 +46,17 @@ export default function MoviesPanel({
     console.log("Props updated. New page:", currentPage, "Year:", selectedYear);
   }, [currentPage, selectedYear]);
 
-  const handleYearChange = (yearRange: string | string[]) => {
-    const yearString = Array.isArray(yearRange) ? yearRange[0] : yearRange;
-    setYear(yearString);
-    console.log("Year changed to:", yearString);
-    router.push(`/?page=1&year=${yearString}`);
+  const handleYearChange = (yearRange: string | string[] | null) => {
+    if (yearRange) {
+      const yearString = Array.isArray(yearRange) ? yearRange[0] : yearRange;
+      setYear(yearString);
+      console.log("Year changed to:", yearString);
+      router.push(`/?page=1&year=${yearString}`);
+    } else {
+      setYear(""); // Reset year
+      console.log("Year cleared");
+      router.push(`/?page=1`); // Remove the 'year' parameter from the URL
+    }
     setPage(1);
     router.refresh(); // Forcer le re-rendu
   };

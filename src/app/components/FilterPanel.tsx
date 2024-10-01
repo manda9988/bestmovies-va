@@ -7,7 +7,7 @@ import { useState } from "react";
 export function FilterPanel({
   onYearChange,
 }: {
-  onYearChange: (yearRange: string | string[]) => void;
+  onYearChange: (yearRange: string | null) => void; // Accept 'null' when no year is selected
 }) {
   const [selectedYear, setSelectedYear] = useState<string>("");
 
@@ -15,7 +15,11 @@ export function FilterPanel({
     const yearString = Array.isArray(value) ? value[0] : value;
     console.log("Year filter changed:", yearString);
     setSelectedYear(yearString);
-    onYearChange(yearString);
+    if (yearString) {
+      onYearChange(yearString); // If year is selected, send it
+    } else {
+      onYearChange(null); // If no year is selected, send 'null'
+    }
   };
 
   return (
