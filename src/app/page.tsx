@@ -8,9 +8,13 @@ import Footer from "./components/Footer";
 export default function Home({
   searchParams,
 }: {
-  searchParams: { page?: string };
+  searchParams: { page?: string; year?: string };
 }) {
-  const currentPage = parseInt(searchParams.page || "1", 10); // Parse la page depuis les params d'URL
+  const currentPage = parseInt(searchParams.page || "1", 10);
+  const selectedYear = searchParams.year || "";
+
+  console.log("Current page from URL:", currentPage);
+  console.log("Selected year from URL:", selectedYear);
 
   return (
     <Flex
@@ -21,7 +25,7 @@ export default function Home({
       minHeight="100vh"
     >
       <Header />
-      <MoviesPanel currentPage={currentPage} /> {/* Passer currentPage ici */}
+      <MoviesPanel currentPage={currentPage} selectedYear={selectedYear} />
       <Flex flexGrow={1} />
       <Footer />
     </Flex>
