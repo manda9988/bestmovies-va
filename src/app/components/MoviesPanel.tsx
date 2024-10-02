@@ -46,16 +46,15 @@ export default function MoviesPanel({
     console.log("Props updated. New page:", currentPage, "Year:", selectedYear);
   }, [currentPage, selectedYear]);
 
-  const handleYearChange = (yearRange: string | string[] | null) => {
+  const handleYearChange = (yearRange: string | null) => {
     if (yearRange) {
-      const yearString = Array.isArray(yearRange) ? yearRange[0] : yearRange;
-      setYear(yearString);
-      console.log("Year changed to:", yearString);
-      router.push(`/?page=1&year=${yearString}`);
+      setYear(yearRange);
+      console.log("Year changed to:", yearRange);
+      router.push(`/?page=1&year=${yearRange}`);
     } else {
-      setYear(""); // Reset year
+      setYear(""); // Réinitialise l'année
       console.log("Year cleared");
-      router.push(`/?page=1`); // Remove the 'year' parameter from the URL
+      router.push(`/?page=1`); // Retire le paramètre 'year' de l'URL
     }
     setPage(1);
     router.refresh(); // Forcer le re-rendu
@@ -64,13 +63,17 @@ export default function MoviesPanel({
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
     console.log("Page changed to:", newPage);
-    router.push(`/?page=${newPage}&year=${year}`);
+    if (year) {
+      router.push(`/?page=${newPage}&year=${year}`);
+    } else {
+      router.push(`/?page=${newPage}`);
+    }
     router.refresh(); // Forcer le re-rendu
   };
 
   return (
     <>
-      <FilterPanel onYearChange={handleYearChange} />
+      <FilterPanel selectedYear={year} onYearChange={handleYearChange} />
       <MoviesContent
         apiKey={apiKey}
         currentPage={page}

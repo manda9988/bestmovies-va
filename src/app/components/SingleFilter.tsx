@@ -13,12 +13,18 @@ import { FaChevronDown } from "react-icons/fa";
 interface SingleFilterProps {
   title: string;
   options: { value: string; label: string }[];
-  onChange?: (value: string) => void; // onChange reste facultatif
+  selectedValue?: string;
+  onChange?: (value: string) => void;
 }
 
-export function SingleFilter({ title, options, onChange }: SingleFilterProps) {
+export function SingleFilter({
+  title,
+  options,
+  selectedValue,
+  onChange,
+}: SingleFilterProps) {
   return (
-    <Menu closeOnSelect={false} matchWidth>
+    <Menu closeOnSelect={true} matchWidth>
       <MenuButton
         as={Button}
         rightIcon={<FaChevronDown />}
@@ -35,8 +41,9 @@ export function SingleFilter({ title, options, onChange }: SingleFilterProps) {
       </MenuButton>
       <MenuList bg="gray.700" width="100%">
         <MenuOptionGroup
-          type="checkbox"
-          onChange={(value) => onChange?.(value as string)} // Appel onChange s'il est fourni
+          type="radio"
+          value={selectedValue}
+          onChange={(value) => onChange?.(value as string)}
         >
           {options.map((option) => (
             <MenuItemOption

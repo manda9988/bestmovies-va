@@ -2,23 +2,20 @@
 
 import { VStack } from "@chakra-ui/react";
 import { SingleFilter } from "./SingleFilter";
-import { useState } from "react";
 
 export function FilterPanel({
+  selectedYear,
   onYearChange,
 }: {
-  onYearChange: (yearRange: string | null) => void; // Accept 'null' when no year is selected
+  selectedYear: string;
+  onYearChange: (yearRange: string | null) => void;
 }) {
-  const [selectedYear, setSelectedYear] = useState<string>("");
-
-  const handleYearChange = (value: string | string[]) => {
-    const yearString = Array.isArray(value) ? value[0] : value;
-    console.log("Year filter changed:", yearString);
-    setSelectedYear(yearString);
-    if (yearString) {
-      onYearChange(yearString); // If year is selected, send it
+  const handleYearChange = (value: string) => {
+    console.log("Year filter changed:", value);
+    if (value) {
+      onYearChange(value); // Si une année est sélectionnée, on la transmet
     } else {
-      onYearChange(null); // If no year is selected, send 'null'
+      onYearChange(null); // Si aucune année n'est sélectionnée, on envoie 'null'
     }
   };
 
@@ -39,6 +36,7 @@ export function FilterPanel({
           { value: "1990-1999", label: "1990 - 1999" },
           { value: "1980-1989", label: "1980 - 1989" },
         ]}
+        selectedValue={selectedYear}
         onChange={handleYearChange}
       />
 
