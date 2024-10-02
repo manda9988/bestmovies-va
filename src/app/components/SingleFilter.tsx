@@ -15,6 +15,7 @@ interface SingleFilterProps {
   options: { value: string; label: string }[];
   selectedValue?: string;
   onChange?: (value: string) => void;
+  isOptionDisabled?: boolean; // Nouvelle prop pour contrôler le désactivé de l'option
 }
 
 export function SingleFilter({
@@ -22,6 +23,7 @@ export function SingleFilter({
   options,
   selectedValue,
   onChange,
+  isOptionDisabled = false, // Valeur par défaut à false
 }: SingleFilterProps) {
   return (
     <Menu closeOnSelect={true} matchWidth>
@@ -34,8 +36,9 @@ export function SingleFilter({
         color="white"
         textAlign="left"
         pl={4}
-        _hover={{ bg: "gray.700" }}
+        _hover={{ bg: "gray.600" }}
         _active={{ bg: "gray.700" }}
+        // Retirer isDisabled du MenuButton pour que le menu puisse s'ouvrir
       >
         {title}
       </MenuButton>
@@ -51,6 +54,7 @@ export function SingleFilter({
               color="white"
               key={option.value}
               value={option.value}
+              isDisabled={isOptionDisabled && option.value === selectedValue} // Désactive l'option si nécessaire
             >
               {option.label}
             </MenuItemOption>

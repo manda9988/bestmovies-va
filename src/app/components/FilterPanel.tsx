@@ -40,9 +40,12 @@ export function FilterPanel({
         onChange={handleYearChange}
       />
 
+      {/* Modifications ici : utilisation de isOptionDisabled */}
       <SingleFilter
         title="Trier par"
         options={[{ value: "rating", label: "Note spectateurs" }]}
+        selectedValue="rating"
+        isOptionDisabled={true}
       />
     </VStack>
   );
