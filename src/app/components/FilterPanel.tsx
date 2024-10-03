@@ -2,20 +2,38 @@
 
 import { VStack } from "@chakra-ui/react";
 import { SingleFilter } from "./SingleFilter";
+import { Genre } from "../../types"; // Import du type Genre
+
+interface FilterPanelProps {
+  selectedYear: string;
+  onYearChange: (yearRange: string | null) => void;
+  selectedGenre: string;
+  onGenreChange: (genre: string | null) => void;
+  genres: Genre[]; // Liste des genres disponibles
+}
 
 export function FilterPanel({
   selectedYear,
   onYearChange,
-}: {
-  selectedYear: string;
-  onYearChange: (yearRange: string | null) => void;
-}) {
+  selectedGenre,
+  onGenreChange,
+  genres,
+}: FilterPanelProps) {
   const handleYearChange = (value: string) => {
     console.log("Year filter changed:", value);
     if (value) {
-      onYearChange(value); // Si une année est sélectionnée, on la transmet
+      onYearChange(value);
     } else {
-      onYearChange(null); // Si aucune année n'est sélectionnée, on envoie 'null'
+      onYearChange(null);
+    }
+  };
+
+  const handleGenreChange = (value: string) => {
+    console.log("Genre filter changed:", value);
+    if (value) {
+      onGenreChange(value);
+    } else {
+      onGenreChange(null);
     }
   };
 
@@ -40,7 +58,17 @@ export function FilterPanel({
         onChange={handleYearChange}
       />
 
-      {/* Modifications ici : utilisation de isOptionDisabled */}
+      {/* Nouveau filtre pour les genres */}
+      <SingleFilter
+        title="Par Genre"
+        options={genres.map((genre) => ({
+          value: genre.id.toString(),
+          label: genre.name,
+        }))}
+        selectedValue={selectedGenre}
+        onChange={handleGenreChange}
+      />
+
       <SingleFilter
         title="Trier par"
         options={[{ value: "rating", label: "Note spectateurs" }]}

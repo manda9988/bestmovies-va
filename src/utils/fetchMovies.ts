@@ -1,22 +1,6 @@
 // src/utils/fetchMovies.ts
 
-interface Movie {
-  id: number;
-  title: string;
-  release_date: string;
-  runtime: number | null;
-  genres: { id: number; name: string }[];
-  overview: string;
-  poster_path: string;
-  production_countries: { iso_3166_1: string; name: string }[];
-  vote_average: number;
-  vote_count: number;
-  weightedRating?: number;
-  credits?: {
-    crew: { job: string; name: string }[];
-    cast: { name: string }[];
-  };
-}
+import { Movie } from "../types"; // Import du type Movie
 
 const allowedCountries = ["US", "CN", "FR", "DE", "JP", "GB", "KR", "IT"];
 const C = 3000; // Constante utilisée pour le calcul de la note pondérée
@@ -43,7 +27,8 @@ async function fetchMovieDetails(movieId: number, apiKey: string) {
 export async function fetchMovies(
   apiKey: string,
   currentPage: number,
-  selectedYear: string = ""
+  selectedYear: string = "",
+  selectedGenre: string = "" // Ajout du paramètre genre
 ) {
   let dateRange = "";
 
@@ -57,11 +42,21 @@ export async function fetchMovies(
     }
   }
 
-  console.log("Fetching movies from API with date range:", dateRange);
+  let genreFilter = "";
+  if (selectedGenre) {
+    genreFilter = `&with_genres=${selectedGenre}`;
+  }
 
-  // Requête pour récupérer les films en fonction de la page et de la plage de dates
+  console.log(
+    "Fetching movies from API with date range:",
+    dateRange,
+    "and genre:",
+    selectedGenre
+  );
+
+  // Requête pour récupérer les films en fonction de la page, de la plage de dates et du genre
   const response = await fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=fr-FR&include_adult=false&sort_by=vote_average.desc&vote_count.gte=3000&page=${currentPage}${dateRange}`
+    `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=fr-FR&include_adult=false&sort_by=vote_average.desc&vote_count.gte=3000&page=${currentPage}${dateRange}${genreFilter}`
   );
 
   if (!response.ok) {
