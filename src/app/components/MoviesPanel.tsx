@@ -24,6 +24,9 @@ interface Movie {
     crew: { job: string; name: string }[];
     cast: { name: string }[];
   };
+  vote_count: number; // Assurez-vous que ces propriétés sont ajoutées
+  vote_average: number;
+  weightedRating?: number;
 }
 
 interface MoviesPanelProps {
@@ -64,11 +67,19 @@ export default function MoviesPanel({
     if (yearRange) {
       setYear(yearRange);
       console.log("Year changed to:", yearRange);
-      router.push(`/?page=1&year=${yearRange}&genre=${genre}`);
+      let url = `/?page=1&year=${yearRange}`;
+      if (genre) {
+        url += `&genre=${genre}`;
+      }
+      router.push(url);
     } else {
       setYear("");
       console.log("Year cleared");
-      router.push(`/?page=1&genre=${genre}`);
+      let url = `/?page=1`;
+      if (genre) {
+        url += `&genre=${genre}`;
+      }
+      router.push(url);
     }
     setPage(1);
     router.refresh();
@@ -78,11 +89,14 @@ export default function MoviesPanel({
     if (genreId) {
       setGenre(genreId);
       console.log("Genre changed to:", genreId);
-      router.push(`/?page=1&year=${year}&genre=${genreId}`);
+      let url = `/?page=1&year=${year}`;
+      url += `&genre=${genreId}`;
+      router.push(url);
     } else {
       setGenre("");
       console.log("Genre cleared");
-      router.push(`/?page=1&year=${year}`);
+      let url = `/?page=1&year=${year}`;
+      router.push(url);
     }
     setPage(1);
     router.refresh();
@@ -91,15 +105,10 @@ export default function MoviesPanel({
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
     console.log("Page changed to:", newPage);
-    if (year && genre) {
-      router.push(`/?page=${newPage}&year=${year}&genre=${genre}`);
-    } else if (year) {
-      router.push(`/?page=${newPage}&year=${year}`);
-    } else if (genre) {
-      router.push(`/?page=${newPage}&genre=${genre}`);
-    } else {
-      router.push(`/?page=${newPage}`);
-    }
+    let url = `/?page=${newPage}`;
+    if (year) url += `&year=${year}`;
+    if (genre) url += `&genre=${genre}`;
+    router.push(url);
     router.refresh();
   };
 

@@ -32,7 +32,10 @@ export interface Movie {
   genres: Genre[];
   overview: string;
   poster_path: string;
-  production_countries: Country[]; // Ajouté
+  production_countries: Country[]; // Déjà ajouté
+  vote_count: number; // Ajouté
+  vote_average: number; // Ajouté
+  weightedRating?: number; // Optionnel
   credits?: Credits;
 }
 

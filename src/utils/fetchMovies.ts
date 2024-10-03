@@ -1,13 +1,13 @@
 // src/utils/fetchMovies.ts
 
-import { Movie } from "../types"; // Import du type Movie
+import { Movie, Country, Genre } from "../types"; // Import des types
 
 const allowedCountries = ["US", "CN", "FR", "DE", "JP", "GB", "KR", "IT"];
 const C = 3000; // Constante utilisée pour le calcul de la note pondérée
 const globalAverage = 6.5; // Moyenne globale à utiliser pour la pondération
 
 // Fonction pour récupérer les détails d'un film, y compris les crédits
-async function fetchMovieDetails(movieId: number, apiKey: string) {
+async function fetchMovieDetails(movieId: number, apiKey: string): Promise<Movie> {
   const detailsResponse = await fetch(
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=fr-FR`
   );
@@ -29,7 +29,7 @@ export async function fetchMovies(
   currentPage: number,
   selectedYear: string = "",
   selectedGenre: string = "" // Ajout du paramètre genre
-) {
+): Promise<{ movies: Movie[]; totalPages: number }> {
   let dateRange = "";
 
   // Si une année est sélectionnée, construire la plage de dates
@@ -69,7 +69,7 @@ export async function fetchMovies(
   const totalPages = Math.min(data.total_pages, 500);
 
   // Récupérer les détails de chaque film
-  const movieDetailsPromises = data.results.map((movie: Movie) =>
+  const movieDetailsPromises: Promise<Movie>[] = data.results.map((movie: Movie) =>
     fetchMovieDetails(movie.id, apiKey)
   );
 
@@ -77,14 +77,14 @@ export async function fetchMovies(
 
   // Filtrer les films en fonction de certains critères, comme les films d'animation et les pays autorisés
   movies = movies.filter((movie: Movie) => {
-    const movieCountries = movie.production_countries.map(
-      (country) => country.iso_3166_1
+    const movieCountries: string[] = movie.production_countries.map(
+      (country: Country) => country.iso_3166_1
     );
-    const isAllowedCountry = movieCountries.some((country) =>
+    const isAllowedCountry = movieCountries.some((country: string) =>
       allowedCountries.includes(country)
     );
     const isAnimation = movie.genres.some(
-      (genre) => genre.name === "Animation"
+      (genre: Genre) => genre.name === "Animation"
     );
     return isAllowedCountry && !isAnimation;
   });
