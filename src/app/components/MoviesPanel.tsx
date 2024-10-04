@@ -2,32 +2,11 @@
 
 "use client";
 
-import { Text } from "@chakra-ui/react";
-import MoviesList from "./MoviesList";
-import { transformMovieData } from "../../utils/transformMovieData";
-import { fetchMovies } from "../../utils/fetchMovies";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import CustomPagination from "./Pagination";
 import { FilterPanel } from "./FilterPanel";
-import { Genre } from "../../types"; // Import du type Genre
-
-interface Movie {
-  id: number;
-  title: string;
-  release_date: string;
-  runtime: number | null;
-  genres: { id: number; name: string }[];
-  overview: string;
-  poster_path: string;
-  credits?: {
-    crew: { job: string; name: string }[];
-    cast: { name: string }[];
-  };
-  vote_count: number; // Assurez-vous que ces propriétés sont ajoutées
-  vote_average: number;
-  weightedRating?: number;
-}
+import MoviesContent from "./MoviesContent"; // Import du nouveau composant
+import { Genre, Movie } from "../../types"; // Import du type Genre et Movie
 
 interface MoviesPanelProps {
   currentPage: number;
@@ -111,65 +90,6 @@ export default function MoviesPanel({
         selectedYear={year}
         selectedGenre={genre} // Passer le genre sélectionné
         onPageChange={handlePageChange}
-      />
-    </>
-  );
-}
-
-function MoviesContent({
-  apiKey,
-  currentPage,
-  selectedYear,
-  selectedGenre,
-  onPageChange,
-}: {
-  apiKey: string;
-  currentPage: number;
-  selectedYear: string;
-  selectedGenre: string;
-  onPageChange: (page: number) => void;
-}) {
-  const [error, setError] = useState<string | null>(null);
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [totalPages, setTotalPages] = useState(1);
-
-  useEffect(() => {
-    async function loadMovies() {
-      try {
-        const result = await fetchMovies(
-          apiKey,
-          currentPage,
-          selectedYear,
-          selectedGenre
-        );
-        console.log("Movies fetched successfully:", result.movies);
-        setMovies(result.movies);
-        setTotalPages(result.totalPages);
-        setError(null);
-      } catch (e) {
-        console.error("Error fetching movies:", e);
-        setError("Erreur lors du chargement des films.");
-      }
-    }
-
-    if (apiKey) {
-      loadMovies();
-    }
-  }, [apiKey, currentPage, selectedYear, selectedGenre]);
-
-  if (error) {
-    return <Text color="red.500">{error}</Text>;
-  }
-
-  const transformedMovies = movies.map(transformMovieData);
-
-  return (
-    <>
-      <MoviesList movies={transformedMovies} />
-      <CustomPagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={onPageChange}
       />
     </>
   );
