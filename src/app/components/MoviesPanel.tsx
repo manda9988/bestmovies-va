@@ -53,39 +53,37 @@ export default function MoviesPanel({
     setYear(selectedYear);
     setGenre(selectedGenre);
     setPage(currentPage);
+    console.log(
+      "Props updated. New page:",
+      currentPage,
+      "Year:",
+      selectedYear,
+      "Genre:",
+      selectedGenre
+    );
   }, [currentPage, selectedYear, selectedGenre]);
 
+  const buildUrl = (page: number, year: string, genre: string) => {
+    const params = new URLSearchParams({ page: page.toString() });
+    if (year) params.append("year", year);
+    if (genre) params.append("genre", genre);
+    return `/?${params.toString()}`;
+  };
+
   const handleYearChange = (yearRange: string | null) => {
-    if (yearRange) {
-      setYear(yearRange);
-      let url = `/?page=1&year=${yearRange}`;
-      if (genre) {
-        url += `&genre=${genre}`;
-      }
-      router.push(url);
-    } else {
-      setYear("");
-      let url = `/?page=1`;
-      if (genre) {
-        url += `&genre=${genre}`;
-      }
-      router.push(url);
-    }
+    setYear(yearRange || "");
+    console.log("Year changed to:", yearRange);
+    const url = buildUrl(1, yearRange || "", genre);
+    router.push(url);
     setPage(1);
     router.refresh();
   };
 
   const handleGenreChange = (genreId: string | null) => {
-    if (genreId) {
-      setGenre(genreId);
-      let url = `/?page=1&year=${year}`;
-      url += `&genre=${genreId}`;
-      router.push(url);
-    } else {
-      setGenre("");
-      let url = `/?page=1&year=${year}`;
-      router.push(url);
-    }
+    setGenre(genreId || "");
+    console.log("Genre changed to:", genreId);
+    const url = buildUrl(1, year, genreId || "");
+    router.push(url);
     setPage(1);
     router.refresh();
   };
@@ -93,9 +91,7 @@ export default function MoviesPanel({
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
     console.log("Page changed to:", newPage);
-    let url = `/?page=${newPage}`;
-    if (year) url += `&year=${year}`;
-    if (genre) url += `&genre=${genre}`;
+    const url = buildUrl(newPage, year, genre);
     router.push(url);
     router.refresh();
   };
