@@ -7,7 +7,10 @@ const C = 3000; // Constante utilisée pour le calcul de la note pondérée
 const globalAverage = 6.5; // Moyenne globale à utiliser pour la pondération
 
 // Fonction pour récupérer les détails d'un film, y compris les crédits
-async function fetchMovieDetails(movieId: number, apiKey: string): Promise<Movie> {
+async function fetchMovieDetails(
+  movieId: number,
+  apiKey: string
+): Promise<Movie> {
   const detailsResponse = await fetch(
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=fr-FR`
   );
@@ -47,13 +50,6 @@ export async function fetchMovies(
     genreFilter = `&with_genres=${selectedGenre}`;
   }
 
-  console.log(
-    "Fetching movies from API with date range:",
-    dateRange,
-    "and genre:",
-    selectedGenre
-  );
-
   // Requête pour récupérer les films en fonction de la page, de la plage de dates et du genre
   const response = await fetch(
     `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=fr-FR&include_adult=false&sort_by=vote_average.desc&vote_count.gte=3000&page=${currentPage}${dateRange}${genreFilter}`
@@ -69,8 +65,8 @@ export async function fetchMovies(
   const totalPages = Math.min(data.total_pages, 500);
 
   // Récupérer les détails de chaque film
-  const movieDetailsPromises: Promise<Movie>[] = data.results.map((movie: Movie) =>
-    fetchMovieDetails(movie.id, apiKey)
+  const movieDetailsPromises: Promise<Movie>[] = data.results.map(
+    (movie: Movie) => fetchMovieDetails(movie.id, apiKey)
   );
 
   let movies = await Promise.all(movieDetailsPromises);

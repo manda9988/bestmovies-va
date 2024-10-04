@@ -16,10 +16,6 @@ export default async function Home({
   const selectedYear = searchParams.year || "";
   const selectedGenre = searchParams.genre || "";
 
-  console.log("Current page from URL:", currentPage);
-  console.log("Selected year from URL:", selectedYear);
-  console.log("Selected genre from URL:", selectedGenre);
-
   // Récupérer la liste des genres
   const genres: Genre[] = await fetchGenres(
     process.env.NEXT_PUBLIC_TMDB_API_KEY ?? ""

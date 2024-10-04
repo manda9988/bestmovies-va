@@ -53,20 +53,11 @@ export default function MoviesPanel({
     setYear(selectedYear);
     setGenre(selectedGenre);
     setPage(currentPage);
-    console.log(
-      "Props updated. New page:",
-      currentPage,
-      "Year:",
-      selectedYear,
-      "Genre:",
-      selectedGenre
-    );
   }, [currentPage, selectedYear, selectedGenre]);
 
   const handleYearChange = (yearRange: string | null) => {
     if (yearRange) {
       setYear(yearRange);
-      console.log("Year changed to:", yearRange);
       let url = `/?page=1&year=${yearRange}`;
       if (genre) {
         url += `&genre=${genre}`;
@@ -74,7 +65,6 @@ export default function MoviesPanel({
       router.push(url);
     } else {
       setYear("");
-      console.log("Year cleared");
       let url = `/?page=1`;
       if (genre) {
         url += `&genre=${genre}`;
@@ -88,13 +78,11 @@ export default function MoviesPanel({
   const handleGenreChange = (genreId: string | null) => {
     if (genreId) {
       setGenre(genreId);
-      console.log("Genre changed to:", genreId);
       let url = `/?page=1&year=${year}`;
       url += `&genre=${genreId}`;
       router.push(url);
     } else {
       setGenre("");
-      console.log("Genre cleared");
       let url = `/?page=1&year=${year}`;
       router.push(url);
     }
@@ -152,14 +140,6 @@ function MoviesContent({
   useEffect(() => {
     async function loadMovies() {
       try {
-        console.log(
-          "Fetching movies for page:",
-          currentPage,
-          "Year:",
-          selectedYear,
-          "Genre:",
-          selectedGenre
-        );
         const result = await fetchMovies(
           apiKey,
           currentPage,

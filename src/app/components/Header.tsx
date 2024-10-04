@@ -9,7 +9,6 @@ export default function Header() {
   const router = useRouter();
 
   const handleResetFilters = () => {
-    console.log("Resetting filters and navigating to the home page.");
     router.push("/?page=1"); // Utilisation de push au lieu de replace
     router.refresh(); // Forcer le re-rendu du côté serveur
   };

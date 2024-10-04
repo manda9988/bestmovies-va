@@ -20,7 +20,6 @@ export function FilterPanel({
   genres,
 }: FilterPanelProps) {
   const handleYearChange = (value: string) => {
-    console.log("Year filter changed:", value);
     if (value) {
       onYearChange(value);
     } else {
@@ -29,7 +28,6 @@ export function FilterPanel({
   };
 
   const handleGenreChange = (value: string) => {
-    console.log("Genre filter changed:", value);
     if (value) {
       onGenreChange(value);
     } else {
