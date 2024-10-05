@@ -42,7 +42,12 @@ export function SingleFilter({
       >
         {title}
       </MenuButton>
-      <MenuList bg="gray.700" width="100%">
+      <MenuList
+        bg="gray.700"
+        width="100%"
+        maxHeight="65vh" // Limite la hauteur maximale à 65vh
+        overflowY="auto" // Ajoute un défilement vertical si nécessaire
+      >
         <MenuOptionGroup
           type="radio"
           value={selectedValue}
