@@ -8,7 +8,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Best Movies",
+  title: "Findmovies",
   description: "A simple app to search for movies and series",
 };
 
