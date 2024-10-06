@@ -45,7 +45,7 @@ export function SingleFilter({
       <MenuList
         bg="gray.700"
         width="100%"
-        maxHeight="65vh" // Limite la hauteur maximale à 65vh
+        maxHeight="50vh" // Limite la hauteur maximale à 65vh
         overflowY="auto" // Ajoute un défilement vertical si nécessaire
       >
         <MenuOptionGroup
