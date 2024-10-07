@@ -12,21 +12,21 @@
 }
 
 .logo h1 {
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: 400;
   color: #e6e6e6;
   letter-spacing: -2.5px;
-  text-shadow: 1px 8px 22px rgb(0, 0, 0);
+  text-shadow: 1px 8px 8px rgba(0, 0, 0, 0.988);
 }
 
 @media (max-width: 900px) {
   .logo h1 {
-    font-size: 4rem;
+    font-size: 3.5rem;
   }
 }
 
 @media (max-width: 550px) {
   .logo h1 {
-    font-size: 3.4rem;
+    font-size: 3rem;
   }
 }
