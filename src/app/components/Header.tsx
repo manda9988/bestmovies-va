@@ -15,9 +15,7 @@ export default function Header() {
 
   return (
     <div className={styles.logo} onClick={handleResetFilters}>
-      <b>
-        <span>Find</span><span>movies</span>
-      </b>
+      <h1>FindMovies</h1>
     </div>
   );
 }
