@@ -17,11 +17,11 @@
   font-weight: 100;
   color: #e6e6e6;
   letter-spacing: -2px;
-  text-shadow: 2px 2px 0px #2462fffc;
+  text-shadow: 2.7px 2.75px 1px #2462fffc;
 }
 
 .logo .clickable {
-  cursor: pointer; /* Appliqué seulement sur le texte */
+  cursor: pointer;
 }
 
 @media (max-width: 900px) {
