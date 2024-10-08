@@ -14,8 +14,12 @@ export default function Header() {
   };
 
   return (
-    <div className={styles.logo} onClick={handleResetFilters}>
-      <h1>FindMovies</h1>
+    <div className={styles.logo}>
+      <h1>
+        <span className={styles.clickable} onClick={handleResetFilters}>
+          FindMovies
+        </span>
+      </h1>
     </div>
   );
 }

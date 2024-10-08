@@ -8,7 +8,6 @@
   width: 100%;
   padding: 20px 0;
   user-select: none;
-  cursor: pointer;
   font-family: "Holtwood One SC", serif;
   /* font-family: "Anybody", sans-serif; */
 }
@@ -19,6 +18,10 @@
   color: #e6e6e6;
   letter-spacing: -2px;
   text-shadow: 2px 2px 0px #2462fffc;
+}
+
+.logo .clickable {
+  cursor: pointer; /* Appliqué seulement sur le texte */
 }
 
 @media (max-width: 900px) {
