@@ -1,6 +1,7 @@
 // src/app/components/MovieCard.tsx
 
-import { Box, Grid, Image, Text } from "@chakra-ui/react";
+import { Box, Grid, Text } from "@chakra-ui/react";
+import Image from "next/image"; // Utilisation de Next.js Image
 
 interface Movie {
   title: string;
@@ -17,11 +18,14 @@ export default function MovieCard({ movie }: { movie: Movie }) {
   return (
     <Box width="100%" bg="gray.100" mb="4" borderRadius="8px" overflow="hidden">
       <Grid templateColumns="35% 65%" gap={3} p="2">
+        {/* Utilisation de Next.js Image avec lazy loading */}
         <Image
           src={movie.posterUrl}
           alt={movie.title}
-          width="100%"
+          width={300}
+          height={450}
           objectFit="contain"
+          loading="lazy" // Activation du lazy loading
         />
         <Box pr="12px">
           <Text fontWeight="extrabold" fontSize="2xl" color="gray.900">
