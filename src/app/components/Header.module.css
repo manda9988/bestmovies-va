@@ -15,9 +15,9 @@
 .logo h1 {
   font-size: 3.5rem;
   font-weight: 100;
-  color: #e6e6e6;
-  letter-spacing: -2px;
-  text-shadow: 2.7px 2.75px 0px #2462fffc;
+  color: #dfdfdf;
+  letter-spacing: -1px;
+  text-shadow: 2.2px 2.2px 0px #525c6bfc;
 }
 
 .logo .clickable {
