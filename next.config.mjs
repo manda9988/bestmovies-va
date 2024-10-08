@@ -13,11 +13,22 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/(.*)", // Applique les headers à toutes les ressources
+        // Applique un cache long uniquement aux images
+        source: "/_next/image(.*)",
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=31536000, immutable", // Mise en cache longue durée
+            value: "public, max-age=31536000, immutable", // Cache longue durée pour les images
+          },
+        ],
+      },
+      {
+        // Applique un cache court pour les autres ressources (HTML, JS)
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=0, must-revalidate", // Désactive le cache pour les ressources dynamiques
           },
         ],
       },
