@@ -1,5 +1,6 @@
 /* src/app/components/Header.module.css */
 
+@import url("https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Holtwood+One+SC&display=swap");
 
 .logo {
@@ -8,15 +9,16 @@
   padding: 20px 0;
   user-select: none;
   cursor: pointer;
+  /* font-family: "Anybody", sans-serif; */
   font-family: "Holtwood One SC", serif;
 }
 
 .logo h1 {
   font-size: 4rem;
-  font-weight: 400;
+  font-weight: 100;
   color: #e6e6e6;
-  letter-spacing: -2.5px;
-  text-shadow: 1px 8px 8px rgba(0, 0, 0, 0.988);
+  letter-spacing: -2px;
+  text-shadow: 3px 3px 0px #2462fffc;
 }
 
 @media (max-width: 900px) {

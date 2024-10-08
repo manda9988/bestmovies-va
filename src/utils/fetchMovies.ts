@@ -33,6 +33,14 @@ export async function fetchMovies(
   selectedYear: string = "",
   selectedGenre: string = "" // Ajout du paramètre genre
 ): Promise<{ movies: Movie[]; totalPages: number }> {
+  // // *** Début de la modification ***
+  // // Retourner des données vides ou fictives en développement
+  // if (process.env.NODE_ENV === "development") {
+  //   console.log("Development mode: No API calls made.");
+  //   return { movies: [], totalPages: 1 }; 
+  // }
+  // // *** Fin de la modification ***
+
   let dateRange = "";
 
   // Si une année est sélectionnée, construire la plage de dates
