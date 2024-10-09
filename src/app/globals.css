@@ -9,28 +9,21 @@
   padding: 0;
 }
 
-/* Appliquer les styles de base au body */
 body {
   font-family: Inter, sans-serif;
-  background-color: #000;
-  color: #fff;
-  line-height: 1.5;
 }
 
-/* Assure que les images ne débordent pas de leur conteneur */
 img {
   max-width: 100%;
   display: block;
 }
 
-/* Basique pour les listes */
 ul,
 ol {
   list-style: none;
   padding-left: 0;
 }
 
-/* Liens sans décoration */
 a {
   text-decoration: none;
   color: inherit;

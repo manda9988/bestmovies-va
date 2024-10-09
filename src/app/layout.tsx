@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Findmovies",
   description: "A simple app to search for movies and series",
   icons: {
-    icon: "/faviconLogo.png", // Ajout du chemin vers ton favicon dans le dossier public
+    icon: "/faviconLogo.png",
   },
 };
 
@@ -23,12 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/faviconLogo.png" />{" "}
-        {/* Ajout explicite de la balise favicon */}
+        <link rel="icon" href="/faviconLogo.png" />
       </head>
       <body className={inter.className}>
         <ChakraProvider>
-          <Flex direction="column" minHeight="100vh">
+          <Flex direction="column" minHeight="100vh" bg="#003503">
             {children}
           </Flex>
         </ChakraProvider>

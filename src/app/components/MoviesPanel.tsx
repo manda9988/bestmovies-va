@@ -5,14 +5,14 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FilterPanel } from "./FilterPanel";
-import MoviesContent from "./MoviesContent"; // Import du nouveau composant
-import { Genre, Movie } from "../../types"; // Import du type Genre et Movie
+import MoviesContent from "./MoviesContent"; 
+import { Genre, Movie } from "../../types"; 
 
 interface MoviesPanelProps {
   currentPage: number;
   selectedYear: string;
-  selectedGenre: string; // Nouvel état pour le genre
-  genres: Genre[]; // Liste des genres disponibles
+  selectedGenre: string; 
+  genres: Genre[]; 
 }
 
 export default function MoviesPanel({
@@ -82,13 +82,13 @@ export default function MoviesPanel({
         onYearChange={handleYearChange}
         selectedGenre={genre}
         onGenreChange={handleGenreChange}
-        genres={genres} // Passer la liste des genres
+        genres={genres} 
       />
       <MoviesContent
         apiKey={apiKey}
         currentPage={page}
         selectedYear={year}
-        selectedGenre={genre} // Passer le genre sélectionné
+        selectedGenre={genre} 
         onPageChange={handlePageChange}
       />
     </>

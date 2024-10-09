@@ -1,11 +1,11 @@
-// src/app/page.tsx
+// page.tsx
 
-import { Flex } from "@chakra-ui/react";
+import { Flex, Box } from "@chakra-ui/react";
 import Header from "./components/Header";
 import MoviesPanel from "./components/MoviesPanel";
 import Footer from "./components/Footer";
-import { fetchGenres } from "../utils/fetchGenres"; // Nouvelle fonction pour récupérer les genres
-import { Genre } from "../types"; // Import du type Genre
+import { fetchGenres } from "../utils/fetchGenres";
+import { Genre } from "../types";
 
 export default async function Home({
   searchParams,
@@ -22,22 +22,23 @@ export default async function Home({
   );
 
   return (
-    <Flex
-      direction="column"
-      alignItems="center"
-      bg="gray.800"
-      color="white"
-      minHeight="100vh"
-    >
-      <Header />
-      <MoviesPanel
-        currentPage={currentPage}
-        selectedYear={selectedYear}
-        selectedGenre={selectedGenre}
-        genres={genres} // Passer les genres au MoviesPanel
-      />
-      <Flex flexGrow={1} />
-      <Footer />
+    <Flex direction="column" flex="1">
+      <Box
+        bg="gray.800"
+        color="white"
+        mx="auto"
+        width="100%"
+        maxWidth="600px"
+      >
+        <Header />
+        <MoviesPanel
+          currentPage={currentPage}
+          selectedYear={selectedYear}
+          selectedGenre={selectedGenre}
+          genres={genres}
+        />
+        <Footer />
+      </Box>
     </Flex>
   );
 }
