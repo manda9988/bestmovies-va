@@ -58,7 +58,7 @@ export default function MoviesContent({
   const transformedMovies = movies.map(transformMovieData);
 
   return (
-    <Box width="100%" maxWidth="500px" mx="auto">
+    <Box width="100%" mx="auto">
       <MoviesList movies={transformedMovies} />
       <CustomPagination
         currentPage={currentPage}

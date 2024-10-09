@@ -26,9 +26,8 @@ export default function MoviesList({ movies }: MoviesListProps) {
       alignItems="center"
       justifyContent="center"
       mt="1"
-      width={{ base: "94%", md: "60%" }}
-      maxWidth="500px"
-      mx="auto" // ← Ajouté
+      width="85%"
+      mx="auto"
       mb="9"
     >
       {movies.length > 0 ? (

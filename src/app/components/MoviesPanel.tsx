@@ -77,7 +77,7 @@ export default function MoviesPanel({
   };
 
   return (
-    <Box width="100%" maxWidth="600px" mx="auto">
+    <Box width="100%" mx="auto">
       <FilterPanel
         selectedYear={year}
         onYearChange={handleYearChange}

@@ -39,8 +39,7 @@ export function FilterPanel({
     <VStack
       spacing={4}
       align="stretch"
-      width={{ base: "95%", md: "60%" }}
-      maxWidth="500px"
+      width="85%" 
       marginBottom="6"
       mx="auto"
     >
