@@ -2,14 +2,14 @@
 
 import { VStack } from "@chakra-ui/react";
 import { SingleFilter } from "./SingleFilter";
-import { Genre } from "../../types"; // Import du type Genre
+import { Genre } from "../../types";
 
 interface FilterPanelProps {
   selectedYear: string;
   onYearChange: (yearRange: string | null) => void;
   selectedGenre: string;
   onGenreChange: (genre: string | null) => void;
-  genres: Genre[]; // Liste des genres disponibles
+  genres: Genre[];
 }
 
 export function FilterPanel({
@@ -42,6 +42,7 @@ export function FilterPanel({
       width={{ base: "95%", md: "60%" }}
       maxWidth="500px"
       marginBottom="6"
+      mx="auto"
     >
       <SingleFilter
         title="Par années de production"
@@ -62,7 +63,6 @@ export function FilterPanel({
         onChange={handleYearChange}
       />
 
-      {/* Nouveau filtre pour les genres */}
       <SingleFilter
         title="Par genres"
         options={genres.map((genre) => ({

@@ -4,15 +4,16 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Box } from "@chakra-ui/react";
 import { FilterPanel } from "./FilterPanel";
-import MoviesContent from "./MoviesContent"; 
-import { Genre, Movie } from "../../types"; 
+import MoviesContent from "./MoviesContent";
+import { Genre } from "../../types";
 
 interface MoviesPanelProps {
   currentPage: number;
   selectedYear: string;
-  selectedGenre: string; 
-  genres: Genre[]; 
+  selectedGenre: string;
+  genres: Genre[];
 }
 
 export default function MoviesPanel({
@@ -76,21 +77,21 @@ export default function MoviesPanel({
   };
 
   return (
-    <>
+    <Box width="100%" maxWidth="600px" mx="auto">
       <FilterPanel
         selectedYear={year}
         onYearChange={handleYearChange}
         selectedGenre={genre}
         onGenreChange={handleGenreChange}
-        genres={genres} 
+        genres={genres}
       />
       <MoviesContent
         apiKey={apiKey}
         currentPage={page}
         selectedYear={year}
-        selectedGenre={genre} 
+        selectedGenre={genre}
         onPageChange={handlePageChange}
       />
-    </>
+    </Box>
   );
 }

@@ -28,6 +28,7 @@ export default function MoviesList({ movies }: MoviesListProps) {
       mt="1"
       width={{ base: "94%", md: "60%" }}
       maxWidth="500px"
+      mx="auto" // ← Ajouté
       mb="9"
     >
       {movies.length > 0 ? (

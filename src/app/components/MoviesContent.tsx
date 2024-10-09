@@ -1,12 +1,12 @@
 // src/app/components/MoviesContent.tsx
 
-import { Text } from "@chakra-ui/react";
+import { Text, Box } from "@chakra-ui/react"; // ← Importé Box
 import MoviesList from "./MoviesList";
 import CustomPagination from "./Pagination";
 import { transformMovieData } from "../../utils/transformMovieData";
 import { fetchMovies } from "../../utils/fetchMovies";
 import { useState, useEffect } from "react";
-import { Movie } from "../../types"; // Import du type Movie
+import { Movie } from "../../types";
 
 interface MoviesContentProps {
   apiKey: string;
@@ -58,13 +58,13 @@ export default function MoviesContent({
   const transformedMovies = movies.map(transformMovieData);
 
   return (
-    <>
+    <Box width="100%" maxWidth="500px" mx="auto">
       <MoviesList movies={transformedMovies} />
       <CustomPagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={onPageChange}
       />
-    </>
+    </Box>
   );
 }

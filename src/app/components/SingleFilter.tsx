@@ -15,7 +15,7 @@ interface SingleFilterProps {
   options: { value: string; label: string }[];
   selectedValue?: string;
   onChange?: (value: string) => void;
-  isOptionDisabled?: boolean; // Nouvelle prop pour contrôler le désactivé de l'option
+  isOptionDisabled?: boolean;
 }
 
 export function SingleFilter({
@@ -23,13 +23,14 @@ export function SingleFilter({
   options,
   selectedValue,
   onChange,
-  isOptionDisabled = false, // Valeur par défaut à false
+  isOptionDisabled = false,
 }: SingleFilterProps) {
   return (
     <Menu closeOnSelect={true} matchWidth>
       <MenuButton
         as={Button}
         rightIcon={<FaChevronDown />}
+        width="100%" // ← Ajouté
         colorScheme="gray"
         variant="outline"
         bg="gray.700"
@@ -38,16 +39,10 @@ export function SingleFilter({
         pl={4}
         _hover={{ bg: "gray.600" }}
         _active={{ bg: "gray.700" }}
-        // Retirer isDisabled du MenuButton pour que le menu puisse s'ouvrir
       >
         {title}
       </MenuButton>
-      <MenuList
-        bg="gray.700"
-        width="100%"
-        maxHeight="50vh" // Limite la hauteur maximale à 65vh
-        overflowY="auto" // Ajoute un défilement vertical si nécessaire
-      >
+      <MenuList bg="gray.700" width="100%" maxHeight="50vh" overflowY="auto">
         <MenuOptionGroup
           type="radio"
           value={selectedValue}
@@ -59,7 +54,7 @@ export function SingleFilter({
               color="white"
               key={option.value}
               value={option.value}
-              isDisabled={isOptionDisabled && option.value === selectedValue} // Désactive l'option si nécessaire
+              isDisabled={isOptionDisabled && option.value === selectedValue}
             >
               {option.label}
             </MenuItemOption>
