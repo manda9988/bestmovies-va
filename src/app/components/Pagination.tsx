@@ -9,13 +9,13 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  onPageChange: (page: number) => void; // Ajout de onPageChange
+  onPageChange: (page: number) => void;
 }
 
 export default function CustomPagination({
   currentPage,
   totalPages,
-  onPageChange, // Reçoit la fonction pour changer de page
+  onPageChange,
 }: PaginationProps) {
   const buttonHeight = "38px";
   const fontSize = "14px";
@@ -27,13 +27,13 @@ export default function CustomPagination({
       count={totalPages}
       pageSize={1}
       page={currentPage}
-      onPageChange={(details) => onPageChange(details.page)} // Appelle onPageChange
+      onPageChange={(details) => onPageChange(details.page)}
     >
       <Flex
         alignItems="center"
-        width="100%"
-        maxWidth="500px"
         overflow="hidden"
+        maxWidth="90%"
+        mx="auto"
         wrap="wrap"
         justifyContent="center"
         rowGap="16px"
