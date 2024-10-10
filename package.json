@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@ark-ui/react": "^3.12.1",
-    "@chakra-ui/react": "^2.10.1",
+    "@chakra-ui/react": "^2.10.2",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@types/react": "^18.3.11",
