@@ -29,6 +29,7 @@ export default async function Home({
         mx="auto"
         width="100%"
         maxWidth="660px"
+        className="custom-shadow"
       >
         <Header />
         <MoviesPanel

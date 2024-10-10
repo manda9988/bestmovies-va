@@ -32,11 +32,11 @@ export default function CustomPagination({
       <Flex
         alignItems="center"
         overflow="hidden"
-        maxWidth="90%"
+        width={{ base: "90%", sm: "76%" }}
         mx="auto"
         wrap="wrap"
         justifyContent="center"
-        rowGap="16px"
+        rowGap="14px"
       >
         <Pagination.PrevTrigger asChild>
           <Button
