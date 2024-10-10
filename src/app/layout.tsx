@@ -27,7 +27,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <ChakraProvider>
-          <Flex direction="column" minHeight="100vh" bg="#003503">
+          <Flex direction="column" minHeight="100vh" bg="#111111">
             {children}
           </Flex>
         </ChakraProvider>

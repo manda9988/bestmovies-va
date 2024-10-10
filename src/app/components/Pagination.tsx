@@ -17,10 +17,10 @@ export default function CustomPagination({
   totalPages,
   onPageChange,
 }: PaginationProps) {
-  const buttonHeight = "38px";
-  const fontSize = "14px";
-  const paddingX = "10px";
-  const marginX = "4px";
+  const buttonHeight = "40px";
+  const fontSize = "15px";
+  const paddingX = "16px";
+  const marginX = "3px";
 
   return (
     <Pagination.Root

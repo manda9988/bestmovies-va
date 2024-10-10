@@ -28,7 +28,7 @@ export default async function Home({
         color="white"
         mx="auto"
         width="100%"
-        maxWidth="600px"
+        maxWidth="650px"
       >
         <Header />
         <MoviesPanel
