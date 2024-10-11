@@ -22,22 +22,27 @@ export default async function Home({
   );
 
   return (
-    <Flex direction="column" flex="1">
+    <Flex direction="column" minHeight="100vh">
       <Box
         bg="gray.800"
         color="white"
         mx="auto"
         width="100%"
         maxWidth="660px"
+        flex="1"
         className="custom-shadow"
+        display="flex"
+        flexDirection="column"
       >
         <Header />
-        <MoviesPanel
-          currentPage={currentPage}
-          selectedYear={selectedYear}
-          selectedGenre={selectedGenre}
-          genres={genres}
-        />
+        <Box flex="1">
+          <MoviesPanel
+            currentPage={currentPage}
+            selectedYear={selectedYear}
+            selectedGenre={selectedGenre}
+            genres={genres}
+          />
+        </Box>
         <Footer />
       </Box>
     </Flex>
