@@ -28,11 +28,12 @@ export default function RootLayout({
       <body className={inter.className}>
         <ChakraProvider>
           <Flex
+            bg="#141414"
             direction="column"
             minHeight="100vh"
-            bgImage="url('/bgFindMovies.png')"
-            bgSize="300px"
-            bgRepeat="repeat"
+            // bgImage="url('/bgFindMovies.png')"
+            // bgSize="300px"
+            // bgRepeat="repeat"
           >
             {children}
           </Flex>

@@ -24,7 +24,9 @@ export default async function Home({
   return (
     <Flex direction="column" minHeight="100vh">
       <Box
-        bg="gray.800"
+        bgImage="url('/bgBox1.png')"
+        bgSize="300px"
+        bgRepeat="repeat"
         color="white"
         mx="auto"
         width="100%"
