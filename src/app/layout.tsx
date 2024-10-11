@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Findmovies",
   description: "A simple app to search for movies and series",
   icons: {
-    icon: "/faviconLogo.png",
+    icon: "/faviconLogo64.png",
   },
 };
 
@@ -23,11 +23,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/faviconLogo.png" />
+        <link rel="icon" href="/faviconLogo64.png" />
       </head>
       <body className={inter.className}>
         <ChakraProvider>
-          <Flex direction="column" minHeight="100vh" bg="#111111">
+          <Flex
+            direction="column"
+            minHeight="100vh"
+            bgImage="url('/bgFindMovies.png')"
+            bgSize="300px"
+            bgRepeat="repeat"
+          >
             {children}
           </Flex>
         </ChakraProvider>
