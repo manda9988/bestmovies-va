@@ -56,7 +56,6 @@ export function FilterPanel({
           { value: "1950-1959", label: "1950 - 1959" },
           { value: "1940-1949", label: "1940 - 1949" },
           { value: "1930-1939", label: "1930 - 1939" },
-          { value: "1920-1929", label: "1920 - 1929" },
         ]}
         selectedValue={selectedYear}
         onChange={handleYearChange}
