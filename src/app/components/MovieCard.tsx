@@ -23,8 +23,8 @@ export default function MovieCard({ movie }: { movie: Movie }) {
           alt={movie.title}
           width={300}
           height={450}
-          objectFit="contain"
           loading="lazy"
+          style={{ objectFit: "contain" }}
         />
         <Box pr="12px">
           <Text fontWeight="extrabold" fontSize="2xl" color="gray.900">

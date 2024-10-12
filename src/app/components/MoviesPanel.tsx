@@ -33,14 +33,7 @@ export default function MoviesPanel({
     setYear(selectedYear);
     setGenre(selectedGenre);
     setPage(currentPage);
-    console.log(
-      "Props updated. New page:",
-      currentPage,
-      "Year:",
-      selectedYear,
-      "Genre:",
-      selectedGenre
-    );
+   
   }, [currentPage, selectedYear, selectedGenre]);
 
   const buildUrl = (page: number, year: string, genre: string) => {
@@ -52,7 +45,6 @@ export default function MoviesPanel({
 
   const handleYearChange = (yearRange: string | null) => {
     setYear(yearRange || "");
-    console.log("Year changed to:", yearRange);
     const url = buildUrl(1, yearRange || "", genre);
     router.push(url);
     setPage(1);
@@ -61,7 +53,6 @@ export default function MoviesPanel({
 
   const handleGenreChange = (genreId: string | null) => {
     setGenre(genreId || "");
-    console.log("Genre changed to:", genreId);
     const url = buildUrl(1, year, genreId || "");
     router.push(url);
     setPage(1);
@@ -70,7 +61,6 @@ export default function MoviesPanel({
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
-    console.log("Page changed to:", newPage);
     const url = buildUrl(newPage, year, genre);
     router.push(url);
     router.refresh();

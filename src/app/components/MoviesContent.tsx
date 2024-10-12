@@ -36,7 +36,7 @@ export default function MoviesContent({
           selectedYear,
           selectedGenre
         );
-        console.log("Movies fetched successfully:", result.movies);
+
         setMovies(result.movies);
         setTotalPages(result.totalPages);
         setError(null);

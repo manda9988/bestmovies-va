@@ -36,7 +36,6 @@ export async function fetchMovies(
   }
 
   const data = await response.json();
-  console.log("Movies fetched from API:", data);
 
   const totalPages = Math.min(data.total_pages, 500);
 
