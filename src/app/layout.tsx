@@ -25,7 +25,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/faviconLogo64.png" />
       </head>
-      <body className={inter.className}>
+      <body className={inter.className} suppressHydrationWarning>
         <ChakraProvider>
           <Flex bg="#141414" direction="column" minHeight="100vh">
             {children}
