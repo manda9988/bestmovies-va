@@ -28,7 +28,7 @@ export async function fetchMovies(
   }
 
   const response = await fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=fr-FR&include_adult=false&sort_by=vote_average.desc&vote_count.gte=3000&page=${currentPage}${dateRange}${genreFilter}`
+    `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=fr-FR&include_adult=false&sort_by=vote_average.desc&vote_count.gte=2000&page=${currentPage}${dateRange}${genreFilter}`
   );
 
   if (!response.ok) {

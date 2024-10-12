@@ -3,7 +3,6 @@
 import { Movie, Country, Genre } from "../types";
 
 const allowedCountries = ["US", "CN", "FR", "DE", "JP", "GB", "KR", "IT"];
-const C = 3000;
 const globalAverage = 6.5;
 
 // Fonction pour filtrer et trier les films
@@ -21,6 +20,11 @@ export function filterAndSortMovies(movies: Movie[]): Movie[] {
     );
     return isAllowedCountry && !isAnimation;
   });
+
+  // Calculer la moyenne des votes pour rendre C dynamique
+  const averageVoteCount =
+    movies.reduce((sum, movie) => sum + movie.vote_count, 0) / movies.length;
+  const C = averageVoteCount;
 
   // Calculer la note pondérée pour chaque film
   movies = movies.map((movie) => ({
