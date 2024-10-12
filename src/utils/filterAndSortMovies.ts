@@ -1,13 +1,12 @@
 // src/utils/filterAndSortMovies.ts
 
-import { Movie, Country, Genre } from "../types";
+import { Movie, Country } from "../types";
 
 const allowedCountries = ["US", "CN", "FR", "DE", "JP", "GB", "KR", "IT"];
-const globalAverage = 6.5;
 
 // Fonction pour filtrer et trier les films
 export function filterAndSortMovies(movies: Movie[]): Movie[] {
-  // Filtrer les films en fonction de certains critères, comme les films d'animation et les pays autorisés
+  // Filtrer les films en fonction des pays autorisés
   movies = movies.filter((movie: Movie) => {
     const movieCountries: string[] = movie.production_countries.map(
       (country: Country) => country.iso_3166_1
@@ -15,16 +14,17 @@ export function filterAndSortMovies(movies: Movie[]): Movie[] {
     const isAllowedCountry = movieCountries.some((country: string) =>
       allowedCountries.includes(country)
     );
-    const isAnimation = movie.genres.some(
-      (genre: Genre) => genre.name === "Animation"
-    );
-    return isAllowedCountry && !isAnimation;
+    return isAllowedCountry;
   });
 
   // Calculer la moyenne des votes pour rendre C dynamique
   const averageVoteCount =
     movies.reduce((sum, movie) => sum + movie.vote_count, 0) / movies.length;
   const C = averageVoteCount;
+
+  // Calculer la moyenne des notes pour rendre globalAverage dynamique
+  const globalAverage =
+    movies.reduce((sum, movie) => sum + movie.vote_average, 0) / movies.length;
 
   // Calculer la note pondérée pour chaque film
   movies = movies.map((movie) => ({
