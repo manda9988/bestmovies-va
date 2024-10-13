@@ -63,10 +63,24 @@ export function FilterPanel({
 
       <SingleFilter
         title="Par genres"
-        options={genres.map((genre) => ({
-          value: genre.id.toString(),
-          label: genre.name,
-        }))}
+        options={genres
+          .filter(
+            (genre) =>
+              ![
+                "Animation",
+                "Documentaire",
+                "Familial",
+                "Histoire",
+                "Musique",
+                "Mystère",
+                "Romance",
+                "Téléfilm",
+              ].includes(genre.name)
+          )
+          .map((genre) => ({
+            value: genre.id.toString(),
+            label: genre.name,
+          }))}
         selectedValue={selectedGenre}
         onChange={handleGenreChange}
       />
