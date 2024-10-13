@@ -3,10 +3,11 @@
 import { Movie, Country } from "../types";
 
 const allowedCountries = ["US", "CN", "FR", "DE", "JP", "GB", "KR", "IT"];
+const animationGenreId = 16; // ID du genre animation
 
 // Fonction pour filtrer et trier les films
 export function filterAndSortMovies(movies: Movie[]): Movie[] {
-  // Filtrer les films en fonction des pays autorisés
+  // Filtrer les films en fonction des pays autorisés et exclure les films d'animation
   movies = movies.filter((movie: Movie) => {
     const movieCountries: string[] = movie.production_countries.map(
       (country: Country) => country.iso_3166_1
@@ -14,7 +15,13 @@ export function filterAndSortMovies(movies: Movie[]): Movie[] {
     const isAllowedCountry = movieCountries.some((country: string) =>
       allowedCountries.includes(country)
     );
-    return isAllowedCountry;
+
+    // Exclure les films d'animation en vérifiant les IDs de genre dans movie.genres
+    const isNotAnimation = !movie.genres.some(
+      (genre) => genre.id === animationGenreId
+    );
+
+    return isAllowedCountry && isNotAnimation;
   });
 
   // Calculer la moyenne des votes pour rendre C dynamique
