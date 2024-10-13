@@ -30,7 +30,7 @@ export default async function Home({
         color="white"
         mx="auto"
         width="100%"
-        maxWidth="660px"
+        maxWidth="700px"
         flex="1"
         className="custom-shadow"
         display="flex"
