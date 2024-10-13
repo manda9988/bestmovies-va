@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Voici une version personnalisée et simplifiée de ton README pour **bestMoviesV2** :
 
-## Getting Started
+---
 
-First, run the development server:
+# BestMoviesV2
+
+BestMoviesV2 est une application web permettant de découvrir des films populaires, triés par genre, année, et classés par note moyenne pondérée. L'application utilise l'API de TMDb pour récupérer les films et propose une interface avec pagination et filtres dynamiques.
+
+## Démarrage
+
+Pour démarrer le serveur de développement :
 
 ```bash
 npm run dev
-# or
+# ou
 yarn dev
-# or
+# ou
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ensuite, ouvre [http://localhost:3000](http://localhost:3000) dans ton navigateur pour voir le résultat.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Fonctionnalités principales
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Filtrage par genre et année**
+- **Pagination dynamique**
+- **Classement des films basé sur un système de notes pondérées**
+- **Utilisation de l'API TMDb**
 
-## Learn More
+## Fichiers principaux
 
-To learn more about Next.js, take a look at the following resources:
+- `src/app/components/MoviesContent.tsx` : Gestion des films et de l'affichage.
+- `src/utils/fetchMovies.ts` : Récupération des films avec tri et filtre.
+- `src/app/components/Pagination.tsx` : Système de pagination.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
