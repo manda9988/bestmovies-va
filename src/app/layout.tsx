@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Findmovies",
   description: "A simple app to search for movies and series",
   icons: {
-    icon: "/faviconLogo64.png",
+    icon: "/f.png",
   },
 };
 
