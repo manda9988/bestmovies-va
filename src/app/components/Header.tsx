@@ -17,7 +17,7 @@ export default function Header() {
     <div className={styles.logo}>
       <h1>
         <span className={styles.clickable} onClick={handleResetFilters}>
-          FindMovies
+          BestMovies
         </span>
       </h1>
     </div>

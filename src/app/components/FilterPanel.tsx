@@ -37,10 +37,10 @@ export function FilterPanel({
 
   return (
     <VStack
-      spacing={4}
+      spacing={2}
       align="stretch"
       width={{ base: "90%", sm: "75%" }}
-      marginBottom="6"
+      marginBottom="40px"
       mx="auto"
     >
       <SingleFilter

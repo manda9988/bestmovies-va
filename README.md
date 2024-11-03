@@ -1,6 +1,6 @@
-# Movies
+# BestMovies
 
-Movies est une application web permettant de découvrir des films populaires, triés par genre, année, et classés par note moyenne pondérée. L'application utilise l'API de TMDb pour récupérer les films et propose une interface avec pagination et filtres dynamiques.
+BestMovies est une application web permettant de découvrir des films populaires, triés par genre, année, et classés par note moyenne pondérée. L'application utilise l'API de TMDb pour récupérer les films et propose une interface avec pagination et filtres dynamiques.
 
 ## Prérequis
 
