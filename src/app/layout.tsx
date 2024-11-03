@@ -8,7 +8,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Findmovies",
+  title: "FindMovies",
   description: "A simple app to search for movies and series",
   icons: {
     icon: "/f.png",
@@ -22,9 +22,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/faviconLogo64.png" />
-      </head>
       <body className={inter.className} suppressHydrationWarning>
         <ChakraProvider>
           <Flex bg="#141414" direction="column" minHeight="100vh">

@@ -33,16 +33,16 @@ export function SingleFilter({
         width="100%" // ← Ajouté
         colorScheme="gray"
         variant="outline"
-        bg="gray.700"
-        color="white"
+        bg="gray.800"
+        color="gray.300"
         textAlign="left"
         pl={4}
-        _hover={{ bg: "gray.600" }}
+        _hover={{ bg: "gray.700" }}
         _active={{ bg: "gray.700" }}
       >
         {title}
       </MenuButton>
-      <MenuList bg="gray.700" width="100%" maxHeight="50vh" overflowY="auto">
+      <MenuList bg="gray.800" width="100%" maxHeight="50vh" overflowY="auto">
         <MenuOptionGroup
           type="radio"
           value={selectedValue}
@@ -50,7 +50,7 @@ export function SingleFilter({
         >
           {options.map((option) => (
             <MenuItemOption
-              bg="gray.700"
+              bg="gray.800"
               color="white"
               key={option.value}
               value={option.value}
