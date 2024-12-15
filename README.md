@@ -1,74 +1,61 @@
-# BestMovies
+# **BestMovies**
 
-BestMovies est une application web permettant de découvrir des films populaires, triés par genre, année, et classés par note moyenne pondérée. L'application utilise l'API de TMDb pour récupérer les films et propose une interface avec pagination et filtres dynamiques.
-
-## Prérequis
-
-Avant de commencer, assure-toi d'avoir installé les éléments suivants :
-
-- [Node.js](https://nodejs.org/) (version 14 ou supérieure)
-- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
-
-## Installation
-
-Clone le repository et installe les dépendances :
-
-```bash
-git clone https://github.com/ton-projet/bestmoviesv2.git
-cd bestmoviesv2
-npm install
-```
-
-## Démarrage
-
-Pour démarrer le serveur de développement :
-
-```bash
-npm run dev
-```
-
-Ensuite, ouvre [http://localhost:3000](http://localhost:3000) dans ton navigateur pour voir l'application.
-
-## Fonctionnalités principales
-
-- **Filtrage par genre et année** : Sélectionne un genre ou une année pour filtrer les films.
-- **Pagination dynamique** : Navigue facilement entre les pages de films.
-- **Classement des films** : Les films sont classés en fonction d'un système de notes pondérées, basé sur la moyenne des votes avec un minimum de 3000 votes.
-- **Utilisation de l'API TMDb** : Les données de films sont récupérées via l'API de [The Movie Database (TMDb)](https://www.themoviedb.org/).
-
-## Fichiers principaux
-
-- `src/app/components/MoviesContent.tsx` : Composant principal pour la gestion des films et de leur affichage.
-- `src/utils/fetchMovies.ts` : Fonction pour récupérer les films avec tri et filtres basés sur les genres, les années, et les notes.
-- `src/app/components/Pagination.tsx` : Composant pour gérer la pagination dynamique.
-- `src/utils/filterAndSortMovies.ts` : Fonction utilitaire pour filtrer et trier les films avant affichage.
-
-## Scripts disponibles
-
-Dans ce projet, tu peux exécuter les scripts suivants :
-
-- `npm run dev` : Lance le serveur en mode développement.
-- `npm run build` : Compile l'application pour la production.
-- `npm run start` : Démarre l'application en mode production.
-- `npm run lint` : Exécute l'analyseur de code pour s'assurer que le code respecte les standards.
-
-## Technologies utilisées
-
-- **Next.js** : Framework React pour le rendu côté serveur.
-- **Chakra UI** : Librairie de composants pour la mise en forme de l'interface utilisateur.
-- **TypeScript** : Superset de JavaScript typé pour améliorer la robustesse du code.
-- **Framer Motion** : Utilisé pour les animations.
-
-## API
-
-L'application utilise l'API TMDb pour récupérer les données de films. Tu peux obtenir une clé API en t'inscrivant sur [TMDb](https://www.themoviedb.org/signup).
-
-## Comment contribuer
-
-1. Fork le projet
-2. Crée une nouvelle branche (`git checkout -b feature/ma-nouvelle-fonctionnalité`)
-3. Fais tes modifications (`git commit -m 'Ajout de ma nouvelle fonctionnalité'`)
-4. Pousse la branche (`git push origin feature/ma-nouvelle-fonctionnalité`)
-5. Ouvre une Pull Request
+Application web pour explorer et filtrer des films populaires.
 
 ---
+
+## **À propos du projet**
+
+- **Affichage dynamique** : Liste des films avec pagination.
+- **Filtres avancés** : Par genre, année de production, et tri par note.
+- **Interface utilisateur moderne** : Construite avec **Chakra UI** et **React Icons**.
+
+---
+
+## **Technologies utilisées**
+
+- **Next.js** : Framework React pour le rendu côté serveur.
+- **Chakra UI** : Composants accessibles et personnalisables.
+- **Tailwind CSS** : Gestion des styles et responsive design.
+- **TypeScript** : Typage fort pour un code robuste.
+- **TMDb API** : Source de données pour les films.
+
+---
+
+## **Installation rapide**
+
+1. **Cloner le projet** :
+   ```bash
+   git clone https://github.com/manda9988/bestmovies.git
+   cd bestmovies
+   ```
+2. **Installer les dépendances** :
+   ```bash
+   npm install
+   ```
+3. **Configurer l’API TMDb** :  
+   Crée un fichier `.env.local` avec :
+   ```env
+   NEXT_PUBLIC_TMDB_API_KEY=VOTRE_CLÉ_API
+   ```
+4. **Démarrer le serveur local** :
+   ```bash
+   npm run dev
+   ```
+   Accéder au site : `http://localhost:3000`
+
+---
+
+## **Structure du projet**
+
+- **`/src/app/components`** : Composants clés (MoviesList, FilterPanel, MovieCard).
+- **`/src/utils`** : Fonctions pour récupérer et transformer les données.
+- **`tailwind.config.ts`** : Configuration Tailwind pour le design.
+- **`next.config.mjs`** : Optimisation des images et cache.
+
+---
+
+## **Auteur**
+
+**Vincent Achy**  
+[LinkedIn](https://www.linkedin.com/in/vincent-achy-1704421a9/) | [GitHub](https://github.com/manda9988)
